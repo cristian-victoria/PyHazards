@@ -5,9 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "PyHazard"
 version = "1.1.0"
-description = "A Python package for Graph Intellectual Property Protection"
+description = "A Python framework for AI-powered hazard prediction and risk assessment"
 readme = "README.md"
-authors = [{ name = "Bolin Shen", email = "blshen@fsu.edu" }]
+authors = [{ name = "Xueqi Cheng", email = "xc25@fsu.edu" }]
 license = { text = "BSD-2-Clause" }
 requires-python = ">=3.8, <3.13"
 
@@ -26,7 +26,9 @@ dependencies = [
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
     "License :: OSI Approved :: BSD License",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",

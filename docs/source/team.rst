@@ -3,14 +3,13 @@ Core Team
 
 Our team is composed of dedicated researchers and developers who contribute to PyHazard's development and maintenance.
 
-Founder
--------
-* `Yushun Dong <https://yushundong.github.io>`__ - Florida State University
+Lead Developer
+--------------
+* Xueqi Cheng - Florida State University (xc25@fsu.edu)
 
-Architects
-----------
-* `Bolin Shen <https://blshen.org>`__ - Florida State University
-* `Kaixiang Zhao <https://www.linkedin.com/in/kaixiang-zhao>`__ - University of Notre Dame
+Contributors
+------------
+* `Yushun Dong <https://yushundong.github.io>`__ - Florida State University
 
 Principal Contributors & Maintainers
 ------------------------------------

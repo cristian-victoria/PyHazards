@@ -1,14 +1,16 @@
 Metadata-Version: 2.4
 Name: PyHazard
 Version: 1.1.0
-Summary: A Python package for Graph Intellectual Property Protection
+Summary: A Python framework for AI-powered hazard prediction and risk assessment
 Author-email: Bolin Shen <blshen@fsu.edu>
 License: BSD-2-Clause
 Project-URL: Homepage, https://labrai.github.io/PyHazard
 Project-URL: Repository, https://github.com/LabRAI/PyHazard
 Classifier: Development Status :: 3 - Alpha
 Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
 Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
 Classifier: License :: OSI Approved :: BSD License
 Classifier: Programming Language :: Python :: 3.8
 Classifier: Programming Language :: Python :: 3.9
@@ -45,15 +47,16 @@ Dynamic: license-file
 [![Stars](https://img.shields.io/github/stars/LabRAI/PyHazard)](https://github.com/LabRAI/PyHazard)
 [![GitHub forks](https://img.shields.io/github/forks/LabRAI/PyHazard)](https://github.com/LabRAI/PyHazard)
 
-PyHazard is a Python library designed for using AI tools for hazard prediction. It provides a modular framework to implement and test prediction strategies on natural hazards.
+PyHazard is a Python framework for AI-powered hazard prediction and risk assessment. It provides a modular and extensible architecture for building, training, and deploying machine learning models to predict and analyze natural hazards and environmental risks.
 
-## How to Cite
+## Features
 
-If you find it useful, please consider citing the following work:
-
-```
-```
-
+- **Modular Architecture**: Easy-to-extend framework for implementing custom hazard prediction models
+- **Graph Neural Networks**: Built-in support for graph-based data representation and GNN models
+- **Flexible Datasets**: Unified dataset interface supporting both DGL and PyTorch Geometric
+- **GPU Acceleration**: Full CUDA support for training and inference
+- **Extensible Models**: Base classes for implementing custom prediction models
+- **Production Ready**: Type hints, proper error handling, and comprehensive testing
 
 ## Installation
 
@@ -61,7 +64,7 @@ PyHazard supports both CPU and GPU environments. Make sure you have Python insta
 
 ### Base Installation
 
-First, install the core package:
+Install the core package:
 
 ```bash
 pip install PyHazard
@@ -69,7 +72,7 @@ pip install PyHazard
 
 This will install PyHazard with minimal dependencies.
 
-### CPU Version
+### CPU Version with Deep Learning Support
 
 ```bash
 pip install "PyHazard[torch,dgl]" \
@@ -89,45 +92,65 @@ pip install "PyHazard[torch,dgl]" \
 
 ## Quick Start
 
-Here's a simple example to use PyHazard:
+Here's a simple example to get started with PyHazard:
 
 ```python
+import pyhazard
 from pyhazard.datasets import Cora
-from pyhazard.models.attack import MEA
+from pyhazard.models.nn import GCN
 
-# Load dataset
+# Load a dataset
 dataset = Cora(api_type='pyg')
 
-# Initialize and run Model Extraction Attack
-attack = MEA(dataset=dataset)
-attack.attack()
+# Initialize a model (example using built-in GCN)
+model = GCN(
+    input_dim=dataset.num_features,
+    hidden_dim=64,
+    output_dim=dataset.num_classes
+)
+
+# Your training and prediction code here
+# ...
 ```
 
-And a simple example to run a defense:
+### Using CUDA
 
-```python
-from pyhazard.datasets import Cora
-from pyhazard.models.defense import ATOM
-
-# Load dataset
-dataset = Cora(api_type='pyg')
-
-# Initialize and run ATOM defense
-defense = ATOM(dataset=dataset)
-defense.defense()
-```
-
-If you want to use CUDA, please set environment variable:
+To use CUDA for GPU acceleration, set the environment variable:
 
 ```shell
 export PYHAZARD_DEVICE=cuda:0
 ```
 
-## Implementation & Contributors Guideline
+Or specify the device in your code:
 
-Refer to [Implementation Guideline](.github/IMPLEMENTATION.md)
+```python
+from pyhazard.utils import set_device
 
-Refer to [Contributors Guideline](.github/CONTRIBUTING.md)
+set_device("cuda:0")
+```
+
+## Documentation
+
+Full documentation is available at: [https://labrai.github.io/PyHazard](https://labrai.github.io/PyHazard)
+
+## Contributing
+
+We welcome contributions! Please see our:
+- [Implementation Guideline](.github/IMPLEMENTATION.md) - For implementing new models
+- [Contributors Guideline](.github/CONTRIBUTING.md) - For contributing to the project
+
+## Citation
+
+If you use PyHazard in your research, please cite:
+
+```bibtex
+@software{pyhazard2025,
+  title={PyHazard: A Python Framework for AI-Powered Hazard Prediction},
+  author={Shen, Bolin and others},
+  year={2025},
+  url={https://github.com/LabRAI/PyHazard}
+}
+```
 
 ## License
 

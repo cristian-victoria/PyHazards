@@ -42,100 +42,67 @@
 
 ----
 
-**PyHazard** is a comprehensive Python library focused on model extraction attacks and defenses in Graph Neural Networks (GNNs). Built on PyTorch, PyTorch Geometric, and DGL, the library offers a robust framework for understanding, implementing, and defending against attacks targeting GNN models.
+**PyHazard** is a comprehensive Python framework for AI-powered hazard prediction and risk assessment. Built on PyTorch, PyTorch Geometric, and DGL, the library provides a modular and extensible architecture for building, training, and deploying machine learning models to predict and analyze natural hazards and environmental risks.
 
-**PyHazard is featured for:**
+**PyHazard is designed for:**
 
-- **Extensive Attack Implementations**: Multiple strategies for GNN model extraction attacks, including fidelity and accuracy evaluation.
-- **Defensive Techniques**: Tools for creating robust defense mechanisms, such as watermarking graphs and inserting synthetic nodes.
-- **Unified API**: Intuitive APIs for both attacks and defenses.
-- **Integration with PyTorch/DGL**: Seamlessly integrates with PyTorch Geometric and DGL for scalable graph processing.
-- **Customizable**: Supports user-defined attack and defense configurations.
+- **Modular Architecture**: Easy-to-extend framework for implementing custom hazard prediction models
+- **Graph Neural Networks**: Built-in support for graph-based data representation and GNN models
+- **Flexible Datasets**: Unified dataset interface supporting both DGL and PyTorch Geometric
+- **GPU Acceleration**: Full CUDA support for training and inference
+- **Extensible Models**: Base classes for implementing custom prediction models
+- **Production Ready**: Type hints, proper error handling, and comprehensive testing
 
 **Quick Start Example:**
 
-Model Extraction Attack Example with 5 Lines of Code:
+Basic Usage Example:
 
 .. code-block:: python
 
-    from datasets import Cora
-    from models.attack import ModelExtractionAttack0
+    import pyhazard
+    from pyhazard.datasets import Cora
+    from pyhazard.models.nn import GCN
 
-    # Load the Cora dataset
-    dataset = Cora()
+    # Load a dataset
+    dataset = Cora(api_type='pyg')
 
-    # Initialize the attack with a sampling ratio of 0.25
-    mea = ModelExtractionAttack0(dataset, 0.25)
+    # Initialize a model
+    model = GCN(
+        input_dim=dataset.num_features,
+        hidden_dim=64,
+        output_dim=dataset.num_classes
+    )
 
-    # Execute the attack
-    mea.attack()
+    # Your training and prediction code here
+    # ...
 
-Attack Modules
+Core Components
 ---------------
 
-.. list-table::
-   :header-rows: 1
+**Datasets**
+   PyHazard provides a unified dataset interface that supports both DGL and PyTorch Geometric formats.
+   Built-in datasets include Cora, CiteSeer, PubMed, and more.
 
-   * - Class Name
-     - Reference
+**Models**
+   Extensible model architecture with built-in neural network backbones including GCN, GAT, and more.
+   Easy to implement custom models by extending base classes.
 
-   * - :doc:`MEA <_autosummary/attack/pyhazard.models.attack.mea.MEA>`
-     - Wu, Bang, et al. "Model extraction attacks on graph neural networks: Taxonomy and realisation." Proceedings of the 2022 ACM on Asia conference on computer and communications security. 2022.
-
-   * - :doc:`AdvMEA <_autosummary/attack/pyhazard.models.attack.AdvMEA>`
-     - DeFazio, David, and Arti Ramesh. "Adversarial model extraction on graph neural networks." arXiv preprint arXiv:1912.07721 (2019).
-
-   * - :doc:`CEGA <_autosummary/attack/pyhazard.models.attack.CEGA>`
-     - Wang, Zebin, et al. "CEGA: A Cost-Effective Approach for Graph-Based Model Extraction and Acquisition." arXiv preprint arXiv:2506.17709 (2025).
-
-   * - :doc:`DataFreeMEA <_autosummary/attack/pyhazard.models.attack.DataFreeMEA>`
-     - Zhuang, Yuanxin, et al. "Unveiling the Secrets without Data: Can Graph Neural Networks Be Exploited through {Data-Free} Model Extraction Attacks?." 33rd USENIX Security Symposium (USENIX Security 24). 2024.
-
-   * - :doc:`Realistic <_autosummary/attack/pyhazard.models.attack.Realistic>`
-     - Guan, Faqian, et al. "A realistic model extraction attack against graph neural networks." Knowledge-Based Systems 300 (2024): 112144.
-
-
-Defense Modules
----------------
-
-.. list-table::
-   :header-rows: 1
-
-   * - Class Name
-     - Reference
-
-   * - :doc:`RandomWM <_autosummary/defense/pyhazard.models.defense.RandomWM>`
-     - Zhao, Xiangyu, Hanzhou Wu, and Xinpeng Zhang. "Watermarking graph neural networks by random graphs." 2021 9th International Symposium on Digital Forensics and Security (ISDFS). IEEE, 2021.
-
-   * - :doc:`BackdoorWM <_autosummary/defense/pyhazard.models.defense.BackdoorWM>`
-     - Xu, Jing, et al. "Watermarking graph neural networks based on backdoor attacks." 2023 IEEE 8th European Symposium on Security and Privacy (EuroS&P). IEEE, 2023.
-
-   * - :doc:`SurviveWM <_autosummary/defense/pyhazard.models.defense.SurviveWM>`
-     - Wang, Haiming, et al. "Making Watermark Survive Model Extraction Attacks in Graph Neural Networks." ICC 2023-IEEE International Conference on Communications. IEEE, 2023.
-
-   * - :doc:`ImperceptibleWM <_autosummary/defense/pyhazard.models.defense.ImperceptibleWM>`
-     - Zhang, Linji, et al. "An imperceptible and owner-unique watermarking method for graph neural networks." Proceedings of the ACM Turing Award Celebration Conference-China 2024. 2024.
-
-   * - :doc:`ATOM <_autosummary/defense/pyhazard.models.defense.atom.ATOM>`
-     - Cheng, Zhan, et al. "Atom: A framework of detecting query-based model extraction attacks for graph neural networks." Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining V. 2. 2025.
-
-   * - :doc:`Integrity <_autosummary/defense/pyhazard.models.defense.Integrity>`
-     - Wu, Bang, et al. "Securing graph neural networks in mlaas: A comprehensive realization of query-based integrity verification." 2024 IEEE Symposium on Security and Privacy (SP). IEEE, 2024.
-
+**Utilities**
+   Helper functions for device management, metrics calculation, and data conversion between DGL and PyTorch Geometric.
 
 How to Cite
 -----------
 
-If you find it useful, please considering cite the following work:
+If you use PyHazard in your research, please cite:
 
 .. code-block:: bibtex
 
-   @article{li2025intellectual,
-      title={Intellectual Property in Graph-Based Machine Learning as a Service: Attacks and Defenses},
-      author={Li, Lincan and Shen, Bolin and Zhao, Chenxi and Sun, Yuxiang and Zhao, Kaixiang and Pan, Shirui and Dong, Yushun},
-      journal={arXiv preprint arXiv:2508.19641},
-      year={2025}
-    }
+   @software{pyhazard2025,
+     title={PyHazard: A Python Framework for AI-Powered Hazard Prediction},
+     author={Cheng, Xueqi},
+     year={2025},
+     url={https://github.com/LabRAI/PyHazard}
+   }
 
 
 .. toctree::
@@ -145,7 +112,6 @@ If you find it useful, please considering cite the following work:
 
    installation
    quick_start
-   benchmark
 
 .. toctree::
    :maxdepth: 1
@@ -153,8 +119,6 @@ If you find it useful, please considering cite the following work:
    :hidden:
 
    pyhazard_datasets
-   pyhazard_models_attack
-   pyhazard_models_defense
    pyhazard_utils
 
 .. toctree::
