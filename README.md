@@ -116,7 +116,7 @@ If you use PyHazard in your research, please cite:
 
 ## License
 
-[BSD 2-Clause License](LICENSE)
+[MIT License](LICENSE)
 
 ## Contact
 

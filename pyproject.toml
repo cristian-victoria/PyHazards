@@ -8,7 +8,7 @@ version = "1.1.0"
 description = "A Python framework for AI-powered hazard prediction and risk assessment"
 readme = "README.md"
 authors = [{ name = "Xueqi Cheng", email = "xc25@fsu.edu" }]
-license = { text = "BSD-2-Clause" }
+license = { text = "MIT" }
 requires-python = ">=3.8, <3.13"
 
 dependencies = [
@@ -29,7 +29,7 @@ classifiers = [
     "Intended Audience :: Developers",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Scientific/Engineering :: Information Analysis",
-    "License :: OSI Approved :: BSD License",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",

@@ -2,8 +2,8 @@ Metadata-Version: 2.4
 Name: PyHazard
 Version: 1.1.0
 Summary: A Python framework for AI-powered hazard prediction and risk assessment
-Author-email: Bolin Shen <blshen@fsu.edu>
-License: BSD-2-Clause
+Author-email: Xueqi Cheng <xc25@fsu.edu>
+License: MIT
 Project-URL: Homepage, https://labrai.github.io/PyHazard
 Project-URL: Repository, https://github.com/LabRAI/PyHazard
 Classifier: Development Status :: 3 - Alpha
@@ -11,7 +11,7 @@ Classifier: Intended Audience :: Science/Research
 Classifier: Intended Audience :: Developers
 Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
 Classifier: Topic :: Scientific/Engineering :: Information Analysis
-Classifier: License :: OSI Approved :: BSD License
+Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3.8
 Classifier: Programming Language :: Python :: 3.9
 Classifier: Programming Language :: Python :: 3.10
@@ -146,7 +146,7 @@ If you use PyHazard in your research, please cite:
 ```bibtex
 @software{pyhazard2025,
   title={PyHazard: A Python Framework for AI-Powered Hazard Prediction},
-  author={Shen, Bolin and others},
+  author={Cheng, Xueqi},
   year={2025},
   url={https://github.com/LabRAI/PyHazard}
 }
@@ -154,7 +154,7 @@ If you use PyHazard in your research, please cite:
 
 ## License
 
-[BSD 2-Clause License](LICENSE)
+[MIT License](LICENSE)
 
 ## Contact
 
