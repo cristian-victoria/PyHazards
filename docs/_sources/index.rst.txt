@@ -132,6 +132,9 @@ If you use PyHazard in your research, please cite:
    :hidden:
 
    pyhazard_datasets
+   pyhazard_models
+   pyhazard_engine
+   pyhazard_metrics
    pyhazard_utils
 
 .. toctree::
