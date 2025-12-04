@@ -8,32 +8,32 @@
    :target: https://pypi.org/project/pyhazards
    :alt: PyPI Version
 
-.. image:: https://img.shields.io/github/actions/workflow/status/LabRAI/PyHazards/docs.yml
-   :target: https://github.com/LabRAI/PyHazards/actions
+.. image:: https://img.shields.io/github/actions/workflow/status/LabRAI/PyHazard/docs.yml
+   :target: https://github.com/LabRAI/PyHazard/actions
    :alt: Build Status
 
-.. image:: https://img.shields.io/github/license/LabRAI/PyHazards.svg
-   :target: https://github.com/LabRAI/PyHazards/blob/main/LICENSE
+.. image:: https://img.shields.io/github/license/LabRAI/PyHazard.svg
+   :target: https://github.com/LabRAI/PyHazard/blob/main/LICENSE
    :alt: License
 
 .. image:: https://img.shields.io/pypi/dm/pyhazards
-   :target: https://github.com/LabRAI/PyHazards
+   :target: https://pypi.org/project/pyhazards
    :alt: PyPI Downloads
 
-.. image:: https://img.shields.io/github/issues/LabRAI/PyHazards
-   :target: https://github.com/LabRAI/PyHazards
+.. image:: https://img.shields.io/github/issues/LabRAI/PyHazard
+   :target: https://github.com/LabRAI/PyHazard
    :alt: Issues
 
-.. image:: https://img.shields.io/github/issues-pr/LabRAI/PyHazards
-   :target: https://github.com/LabRAI/PyHazards
+.. image:: https://img.shields.io/github/issues-pr/LabRAI/PyHazard
+   :target: https://github.com/LabRAI/PyHazard
    :alt: Pull Requests
 
-.. image:: https://img.shields.io/github/stars/LabRAI/PyHazards
-   :target: https://github.com/LabRAI/PyHazards
+.. image:: https://img.shields.io/github/stars/LabRAI/PyHazard
+   :target: https://github.com/LabRAI/PyHazard
    :alt: Stars
 
-.. image:: https://img.shields.io/github/forks/LabRAI/PyHazards
-   :target: https://github.com/LabRAI/PyHazards
+.. image:: https://img.shields.io/github/forks/LabRAI/PyHazard
+   :target: https://github.com/LabRAI/PyHazard
    :alt: GitHub forks
 
 .. image:: _static/github.svg

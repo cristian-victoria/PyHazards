@@ -37,8 +37,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://labrai.github.io/PyHazards"
-Repository = "https://github.com/LabRAI/PyHazards"
+Homepage = "https://labrai.github.io/PyHazard"
+Repository = "https://github.com/LabRAI/PyHazard"
 
 [tool.setuptools]
 include-package-data = true
