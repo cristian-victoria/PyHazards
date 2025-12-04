@@ -4,7 +4,7 @@ Installation
 PyHazard requires Python 3.8+ and can be installed using pip. We recommend using a conda environment for installation.
 
 Installing PyHazard
-----------------
+-------------------
 
 To get started with PyHazard, set up your environment by installing the required dependencies:
 
@@ -25,7 +25,7 @@ For CPU
     pip install dgl==2.2.1 -f https://data.dgl.ai/wheels/torch-2.3/repo.html
 
 For GPU (cuda 12.1)
-~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 

@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath('../../'))
 project = 'PyHazard'
 copyright = '2025, RAILab'
 author = 'RAILab'
-release = '1.0.0'
+release = '1.0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -47,6 +47,7 @@ napoleon_numpy_docstring = True
 html_theme = 'furo'
 html_static_path = ['_static']
 html_baseurl = "https://labrai.github.io/PyHazard/"
+html_logo = "_static/logo.png"
 
 html_theme_options = {
     "navigation_with_keys": True,

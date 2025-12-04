@@ -1,7 +1,7 @@
 .. raw:: html
 
-   <div style="margin-top: 50px; text-align: center;">
-     <img src="_static/logo.png" alt="PyHazard Icon" style="width: 600px; height: auto;">
+   <div style="margin: 30px 0; text-align: center;">
+     <img src="_static/logo.png" alt="PyHazard Icon" style="max-width: 260px; height: auto;">
    </div>
 
 .. image:: https://img.shields.io/pypi/v/PyHazard

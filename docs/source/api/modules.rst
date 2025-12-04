@@ -1,7 +1,7 @@
 :orphan:
 
 pyhazard
-=====
+========
 
 .. toctree::
    :maxdepth: 4
