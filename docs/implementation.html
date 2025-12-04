@@ -3,11 +3,11 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="How to Cite" href="cite.html"><link rel="prev" title="pyhazard.utils.metrics" href="_autosummary/utils/pyhazard.utils.metrics.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="How to Cite" href="cite.html"><link rel="prev" title="pyhazard.utils.common" href="_autosummary/utils/pyhazard.utils.common.html">
         <link rel="canonical" href="https://labrai.github.io/PyHazard/implementation.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>Implementation - PyHazard 1.0.0 documentation</title>
+        <title>Implementation Guide - PyHazard 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=580074bf" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -198,26 +198,16 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="pyhazard_datasets.html">Datasets</a><input aria-label="Toggle navigation of Datasets" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Cora.html">pyhazard.datasets.Cora</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CiteSeer.html">pyhazard.datasets.CiteSeer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.PubMed.html">pyhazard.datasets.PubMed</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Computers.html">pyhazard.datasets.Computers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Photo.html">pyhazard.datasets.Photo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CoauthorCS.html">pyhazard.datasets.CoauthorCS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CoauthorPhysics.html">pyhazard.datasets.CoauthorPhysics</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l1"><a class="reference internal" href="pyhazard_datasets.html">Datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.hardware.html">pyhazard.utils.hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.dglTopyg.html">pyhazard.utils.dglTopyg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.metrics.html">pyhazard.utils.metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.common.html">pyhazard.utils.common</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Implementation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Implementation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cite.html">How to Cite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="team.html">Core Team</a></li>
 </ul>
@@ -258,235 +248,81 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="implementation">
-<h1>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">¶</a></h1>
-<p>PyHazard is built to be modular and extensible, allowing contributors to implement their own attack and defense strategies.
-Below, we detail how to extend the framework by implementing custom attack and defense classes, with a focus on how to
-leverage the provided dataset structure.</p>
-<section id="dataset">
-<h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> class standardizes the data format across PyHazard. Here’s its structure:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Dataset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_type</span><span class="o">=</span><span class="s1">&#39;dgl&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;./data&#39;</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">api_type</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;dgl&#39;</span><span class="p">,</span> <span class="s1">&#39;pyg&#39;</span><span class="p">},</span> <span class="s1">&#39;API type must be dgl or pyg&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">api_type</span> <span class="o">=</span> <span class="n">api_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dataset_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+          <section id="implementation-guide">
+<h1>Implementation Guide<a class="headerlink" href="#implementation-guide" title="Link to this heading">¶</a></h1>
+<p>PyHazard is modular and registry-driven. This guide shows how to add your own datasets, models, transforms, and metrics in line with the hazard-first architecture.</p>
+<section id="datasets">
+<h2>Datasets<a class="headerlink" href="#datasets" title="Link to this heading">¶</a></h2>
+<p>Implement a dataset by subclassing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> and returning a <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code> from <code class="docutils literal notranslate"><span class="pre">_load()</span></code>. Register it so users can load by name.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DataBundle</span><span class="p">,</span> <span class="n">DataSplit</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">FeatureSpec</span><span class="p">,</span> <span class="n">LabelSpec</span><span class="p">,</span> <span class="n">register_dataset</span>
+<span class="p">)</span>
 
-        <span class="c1"># DGLGraph or PyGData</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph_dataset</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph_data</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyHazard</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_hazard&quot;</span>
 
-        <span class="c1"># meta data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="mi">0</span>
-</pre></div>
-</div>
-<p><strong>Importance</strong>: We are currently using the default <code class="docutils literal notranslate"><span class="pre">api_type='pyg'</span></code> to load the data. It is important to note that when
-<code class="docutils literal notranslate"><span class="pre">api_type='pyg'</span></code>, <code class="docutils literal notranslate"><span class="pre">self.graph_data</span></code> should be an instance of <code class="docutils literal notranslate"><span class="pre">torch_geometric.data.Data</span></code>. In your implementation, make
-sure to use our defined Dataset class to build your code.</p>
-</section>
-<section id="device">
-<h2>Device<a class="headerlink" href="#device" title="Link to this heading">¶</a></h2>
-<p>To ensure consistency and simplicity when managing CUDA devices across attacks and defenses, we follow the convention
-below:</p>
-<ul class="simple">
-<li><p>Both <code class="docutils literal notranslate"><span class="pre">BaseAttack</span></code> and <code class="docutils literal notranslate"><span class="pre">BaseDefense</span></code> define the device attribute <code class="docutils literal notranslate"><span class="pre">self.device</span></code> in their <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> method.</p></li>
-<li><p>Subclasses should not manually redefine or modify the device logic.</p></li>
-<li><p>If you are implementing a custom attack or defense class, simply inherit from <code class="docutils literal notranslate"><span class="pre">BaseAttack</span></code> or <code class="docutils literal notranslate"><span class="pre">BaseDefense</span></code>.</p></li>
-<li><p>You can directly access the device using: <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x.to(self.device)</span></code></p></li>
-</ul>
-</section>
-<section id="implementing-attack">
-<h2>Implementing Attack<a class="headerlink" href="#implementing-attack" title="Link to this heading">¶</a></h2>
-<p>To create a custom attack, you need to extend the abstract base class <code class="docutils literal notranslate"><span class="pre">BaseAttack</span></code>. Here’s the structure
-of <code class="docutils literal notranslate"><span class="pre">BaseAttack</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BaseAttack</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="n">supported_api_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="n">supported_datasets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">attack_node_fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">if</span> <span class="n">device</span> <span class="k">else</span> <span class="n">get_device</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using device: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="c1"># graph data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph_dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">graph_dataset</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph_data</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">graph_data</span>
-
-        <span class="c1"># meta data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_nodes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_features</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_classes</span>
-
-        <span class="c1"># params</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">attack_node_fraction</span> <span class="o">=</span> <span class="n">attack_node_fraction</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">model_path</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_dataset_compatibility</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>To implement your own attack:</p>
-<ol class="arabic">
-<li><p><strong>Inherit from ``BaseAttack``</strong>:
-Create a new class that inherits from <code class="docutils literal notranslate"><span class="pre">BaseAttack</span></code>. You’ll need to provide the following required parameters in the
-constructor:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code>: An instance of the <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> class (see below for details).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">attack_node_fraction</span></code>: A float between 0 and 1 representing the fraction of nodes to attack.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">model_path</span></code> (optional): A string specifying the path to a pre-trained model (defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p></li>
-</ul>
-<p>You need to implement the following methods:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">attack()</span></code>: Add main attack logic here. If multiple attack types are supported, define the attack type as an optional
-argument to this function. For each specific attack type, implement a corresponding helper function such as
-<code class="docutils literal notranslate"><span class="pre">_attack_type1()</span></code> or <code class="docutils literal notranslate"><span class="pre">_attack_type2()</span></code>, and call the appropriate helper inside <code class="docutils literal notranslate"><span class="pre">attack()</span></code> based on the given method name.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_load_model()</span></code>: Load victim model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_train_target_model()</span></code>: Train victim model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_train_attack_model()</span></code>: Train attack model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_helper_func()</span></code> (optional): Add your helper functions based on your needs, but keep the methods private.</p></li>
-</ul>
-</li>
-<li><p><strong>Implement the ``attack()`` Method</strong>:
-Override the abstract <code class="docutils literal notranslate"><span class="pre">attack()</span></code> method with your attack logic, and return a dict of results. For example:</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyCustomAttack</span><span class="p">(</span><span class="n">BaseAttack</span><span class="p">):</span>
-    <span class="n">supported_api_types</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;pyg&quot;</span><span class="p">}</span>  <span class="c1"># &quot;pyg&quot; or &quot;dgl&quot;</span>
-    <span class="n">supported_datasets</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Cora&quot;</span><span class="p">}</span>  <span class="c1"># you can leave this blank if your method supports all datasets</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">attack_node_fraction</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">attack_node_fraction</span><span class="p">,</span> <span class="n">model_path</span><span class="p">)</span>
-        <span class="c1"># Additional initialization if needed</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Example: Access the graph and perform an attack</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attacking </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">attack_node_fraction</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">}</span><span class="s2">% of nodes&quot;</span><span class="p">)</span>
-        <span class="n">num_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Graph has </span><span class="si">{</span><span class="n">num_nodes</span><span class="si">}</span><span class="s2"> nodes&quot;</span><span class="p">)</span>
-        <span class="c1"># Add your attack logic here</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;metric1&#39;</span><span class="p">:</span> <span class="s1">&#39;metric1 here&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;metric2&#39;</span><span class="p">:</span> <span class="s1">&#39;metric2 here&#39;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,))</span>
+        <span class="n">splits</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="mi">800</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">800</span><span class="p">]),</span>
+            <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">800</span><span class="p">:</span><span class="mi">900</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">800</span><span class="p">:</span><span class="mi">900</span><span class="p">]),</span>
+            <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">900</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">900</span><span class="p">:]),</span>
         <span class="p">}</span>
+        <span class="k">return</span> <span class="n">DataBundle</span><span class="p">(</span>
+            <span class="n">splits</span><span class="o">=</span><span class="n">splits</span><span class="p">,</span>
+            <span class="n">feature_spec</span><span class="o">=</span><span class="n">FeatureSpec</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;example features&quot;</span><span class="p">),</span>
+            <span class="n">label_spec</span><span class="o">=</span><span class="n">LabelSpec</span><span class="p">(</span><span class="n">num_targets</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># add your logic here</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_train_target_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># add your logic here</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_train_attack_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># add your logic here</span>
-        <span class="k">pass</span>
+<span class="n">register_dataset</span><span class="p">(</span><span class="n">MyHazard</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">MyHazard</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="implementing-defense">
-<h2>Implementing Defense<a class="headerlink" href="#implementing-defense" title="Link to this heading">¶</a></h2>
-<p>To create a custom defense, you need to extend the abstract base class <code class="docutils literal notranslate"><span class="pre">BaseDefense</span></code>. Here’s the structure
-of <code class="docutils literal notranslate"><span class="pre">BaseDefense</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BaseDefense</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="n">supported_api_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="n">supported_datasets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<section id="transforms">
+<h2>Transforms<a class="headerlink" href="#transforms" title="Link to this heading">¶</a></h2>
+<p>Create reusable preprocessing functions (e.g., normalization, index computation, temporal windowing) that accept and return a <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code>. Chain them via the <code class="docutils literal notranslate"><span class="pre">transforms</span></code> argument to <code class="docutils literal notranslate"><span class="pre">Dataset.load()</span></code>.</p>
+</section>
+<section id="models">
+<h2>Models<a class="headerlink" href="#models" title="Link to this heading">¶</a></h2>
+<p>Use the provided backbones (MLP, CNN patch encoder, temporal encoder) and task heads (classification, regression, segmentation) via <code class="docutils literal notranslate"><span class="pre">build_model</span></code>. To add a custom model, register a builder:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_model</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">attack_node_fraction</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                 <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">if</span> <span class="n">device</span> <span class="k">else</span> <span class="n">get_device</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using device: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">my_model_builder</span><span class="p">(</span><span class="n">task</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">in_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+    <span class="c1"># Simple example: a two-layer MLP for classification/regression</span>
+    <span class="n">hidden</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hidden_dim&quot;</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_dim</span><span class="p">,</span> <span class="n">hidden</span><span class="p">),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="n">out_dim</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">layers</span>
 
-        <span class="c1"># graph data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph_dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">graph_dataset</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph_data</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">graph_data</span>
-
-        <span class="c1"># meta data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_nodes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_features</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_classes</span>
-
-        <span class="c1"># params</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">attack_node_fraction</span> <span class="o">=</span> <span class="n">attack_node_fraction</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_dataset_compatibility</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>To implement your own defense:</p>
-<ol class="arabic">
-<li><p><strong>Inherit from ``BaseDefense``</strong>:
-Create a new class that inherits from <code class="docutils literal notranslate"><span class="pre">BaseDefense</span></code>. You’ll need to provide the following required parameters in the
-constructor:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code>: An instance of the <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> class (see below for details).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">attack_node_fraction</span></code>: A float between 0 and 1 representing the fraction of nodes to attack.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">model_path</span></code> (optional): A string specifying the path to a pre-trained model (defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p></li>
-</ul>
-<p>You need to implement the following methods:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">defense()</span></code>: Add main defense logic here. If multiple defense types are supported, define the defense type as an
-optional argument to this function. For each specific defense type, implement a corresponding helper function such as
-<code class="docutils literal notranslate"><span class="pre">_defense_type1()</span></code> or <code class="docutils literal notranslate"><span class="pre">_defense_type2()</span></code>, and call the appropriate helper inside <code class="docutils literal notranslate"><span class="pre">defense()</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_load_model()</span></code>: Load victim model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_train_target_model()</span></code>: Train victim model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_train_defense_model()</span></code>: Train defense model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_train_surrogate_model()</span></code>: Train attack model.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_helper_func()</span></code> (optional): Add your helper functions based on your needs, but keep the methods private.</p></li>
-</ul>
-</li>
-<li><p><strong>Implement the ``defense()`` Method</strong>:
-Override the abstract <code class="docutils literal notranslate"><span class="pre">defense()</span></code> method with your defense logic, and return a dict of results. For example:</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyCustomDefense</span><span class="p">(</span><span class="n">BaseDefense</span><span class="p">):</span>
-    <span class="n">supported_api_types</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;pyg&quot;</span><span class="p">}</span>  <span class="c1"># &quot;pyg&quot; or &quot;dgl&quot;</span>
-    <span class="n">supported_datasets</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Cora&quot;</span><span class="p">}</span>  <span class="c1"># you can leave this blank if your method supports all datasets</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">defend</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Step 1: Train target model</span>
-        <span class="n">target_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_train_target_model</span><span class="p">()</span>
-        <span class="c1"># Step 2: Attack target model</span>
-        <span class="n">attack</span> <span class="o">=</span> <span class="n">MyCustomAttack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">attack_node_fraction</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-        <span class="n">attack</span><span class="o">.</span><span class="n">attack</span><span class="p">(</span><span class="n">target_model</span><span class="p">)</span>
-        <span class="c1"># Step 3: Train defense model</span>
-        <span class="n">defense_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_train_defense_model</span><span class="p">()</span>
-        <span class="c1"># Step 4: Test defense against attack</span>
-        <span class="n">attack</span> <span class="o">=</span> <span class="n">MyCustomAttack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">attack_node_fraction</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-        <span class="n">attack</span><span class="o">.</span><span class="n">attack</span><span class="p">(</span><span class="n">defense_model</span><span class="p">)</span>
-        <span class="c1"># Print performance metrics</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_load_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># add your logic here</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_train_target_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># add your logic here</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_train_defense_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># add your logic here</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_train_surrogate_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># add your logic here</span>
-        <span class="k">pass</span>
+<span class="n">register_model</span><span class="p">(</span><span class="s2">&quot;my_mlp&quot;</span><span class="p">,</span> <span class="n">my_model_builder</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;hidden_dim&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">})</span>
 </pre></div>
 </div>
 </section>
-<section id="miscellaneous-tips">
-<h2>Miscellaneous Tips<a class="headerlink" href="#miscellaneous-tips" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><strong>Reference Implementation</strong>: The <code class="docutils literal notranslate"><span class="pre">ModelExtractionAttack0</span></code> class is a fully implemented attack example. Study it for
-inspiration or as a template.</p></li>
-<li><p><strong>Flexibility</strong>: Add as many helper functions as needed within your class to keep your code clean and modular.</p></li>
-<li><p><strong>Backbone Models</strong>: We provide several basic backbone models like <code class="docutils literal notranslate"><span class="pre">GCN,</span> <span class="pre">GraphSAGE</span></code>. You can use or add more
-at <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">models.nn</span> <span class="pre">import</span> <span class="pre">GraphSAGE</span></code>.</p></li>
-<li><p><strong>Example Scripts</strong>: Please provide an example script in the <code class="docutils literal notranslate"><span class="pre">examples/</span></code> folder demonstrating how to run your code. This
-will significantly speed up our code review process.</p></li>
-</ul>
-<p>By following these guidelines, you can seamlessly integrate your custom attack or defense strategies into PyHazard. Happy
-coding!</p>
+<section id="training">
+<h2>Training<a class="headerlink" href="#training" title="Link to this heading">¶</a></h2>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> for fit/evaluate/predict with optional AMP and multi-GPU (DDP) support:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassificationMetrics</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># build_model(...) or a registered model</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">ClassificationMetrics</span><span class="p">()],</span> <span class="n">mixed_precision</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_bundle</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">data_bundle</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="metrics">
+<h2>Metrics<a class="headerlink" href="#metrics" title="Link to this heading">¶</a></h2>
+<p>Metrics subclass <code class="docutils literal notranslate"><span class="pre">MetricBase</span></code> with <code class="docutils literal notranslate"><span class="pre">update/compute/reset</span></code>. Add your own and pass them to <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>; for distributed training, aggregate on CPU after collecting predictions/targets.</p>
 </section>
 </section>
 
@@ -504,14 +340,14 @@ coding!</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="_autosummary/utils/pyhazard.utils.metrics.html">
+          <a class="prev-page" href="_autosummary/utils/pyhazard.utils.common.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">pyhazard.utils.metrics</div>
+                <div class="title">pyhazard.utils.common</div>
                 
               </div>
             </a>
@@ -545,12 +381,12 @@ coding!</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Implementation</a><ul>
-<li><a class="reference internal" href="#dataset">Dataset</a></li>
-<li><a class="reference internal" href="#device">Device</a></li>
-<li><a class="reference internal" href="#implementing-attack">Implementing Attack</a></li>
-<li><a class="reference internal" href="#implementing-defense">Implementing Defense</a></li>
-<li><a class="reference internal" href="#miscellaneous-tips">Miscellaneous Tips</a></li>
+<li><a class="reference internal" href="#">Implementation Guide</a><ul>
+<li><a class="reference internal" href="#datasets">Datasets</a></li>
+<li><a class="reference internal" href="#transforms">Transforms</a></li>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#training">Training</a></li>
+<li><a class="reference internal" href="#metrics">Metrics</a></li>
 </ul>
 </li>
 </ul>

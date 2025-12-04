@@ -4,15 +4,10 @@ Utils
 Summary
 -------
 
-In this section, we present the utility modules of PyHazard.
+Utility modules for device management, seeding, logging, and other helpers.
 
 Submodules
 ----------
 
-.. autosummary::
-   :toctree: _autosummary/utils
-   :recursive:
-
-   pyhazard.utils.hardware
-   pyhazard.utils.dglTopyg
-   pyhazard.utils.metrics
+- :mod:`pyhazard.utils.hardware` — device helpers
+- :mod:`pyhazard.utils.common` — seeding and logging helpers

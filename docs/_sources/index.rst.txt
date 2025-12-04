@@ -42,53 +42,66 @@
 
 ----
 
-**PyHazard** is a comprehensive Python framework for AI-powered hazard prediction and risk assessment. Built on PyTorch, PyTorch Geometric, and DGL, the library provides a modular and extensible architecture for building, training, and deploying machine learning models to predict and analyze natural hazards and environmental risks.
+**PyHazard** is a comprehensive Python framework for AI-powered hazard prediction and risk assessment. Built on PyTorch with a hazard-first design, the library provides a modular and extensible architecture for building, training, and deploying machine learning models to predict and analyze natural hazards and environmental risks.
 
 **PyHazard is designed for:**
 
-- **Modular Architecture**: Easy-to-extend framework for implementing custom hazard prediction models
-- **Graph Neural Networks**: Built-in support for graph-based data representation and GNN models
-- **Flexible Datasets**: Unified dataset interface supporting both DGL and PyTorch Geometric
-- **GPU Acceleration**: Full CUDA support for training and inference
-- **Extensible Models**: Base classes for implementing custom prediction models
-- **Production Ready**: Type hints, proper error handling, and comprehensive testing
+- **Hazard-First Architecture**: Unified dataset interface for tabular, temporal, and raster data
+- **Simple, Extensible Models**: Ready-to-use MLP/CNN/temporal encoders with task heads
+- **Trainer API**: Fit/evaluate/predict with optional mixed precision and multi-GPU (DDP) support
+- **Metrics**: Classification, regression, and segmentation metrics out of the box
+- **Extensibility**: Registries for datasets, models, transforms, and pipelines
 
 **Quick Start Example:**
 
-Basic Usage Example:
+Basic Usage Example (toy dataset):
 
 .. code-block:: python
 
-    import pyhazard
-    from pyhazard.datasets import Cora
-    from pyhazard.models.nn import GCN
+    import torch
+    from pyhazard.datasets import DataBundle, DataSplit, Dataset, FeatureSpec, LabelSpec
+    from pyhazard.models import build_model
+    from pyhazard.engine import Trainer
+    from pyhazard.metrics import ClassificationMetrics
 
-    # Load a dataset
-    dataset = Cora(api_type='pyg')
+    class ToyHazard(Dataset):
+        def _load(self):
+            x = torch.randn(500, 16)
+            y = torch.randint(0, 2, (500,))
+            splits = {
+                "train": DataSplit(x[:350], y[:350]),
+                "val": DataSplit(x[350:425], y[350:425]),
+                "test": DataSplit(x[425:], y[425:]),
+            }
+            return DataBundle(
+                splits=splits,
+                feature_spec=FeatureSpec(input_dim=16, description="toy features"),
+                label_spec=LabelSpec(num_targets=2, task_type="classification"),
+            )
 
-    # Initialize a model
-    model = GCN(
-        input_dim=dataset.num_features,
-        hidden_dim=64,
-        output_dim=dataset.num_classes
-    )
+    data = ToyHazard().load()
+    model = build_model(name="mlp", task="classification", in_dim=16, out_dim=2)
+    trainer = Trainer(model=model, metrics=[ClassificationMetrics()], mixed_precision=True)
 
-    # Your training and prediction code here
-    # ...
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    loss_fn = torch.nn.CrossEntropyLoss()
+
+    trainer.fit(data, optimizer=optimizer, loss_fn=loss_fn, max_epochs=5)
+    results = trainer.evaluate(data, split="test")
+    print(results)
 
 Core Components
 ---------------
 
 **Datasets**
-   PyHazard provides a unified dataset interface that supports both DGL and PyTorch Geometric formats.
-   Built-in datasets include Cora, CiteSeer, PubMed, and more.
+   PyHazard provides a unified dataset interface for tabular, temporal, and raster data, returning a ``DataBundle`` with splits and specs.
 
 **Models**
-   Extensible model architecture with built-in neural network backbones including GCN, GAT, and more.
-   Easy to implement custom models by extending base classes.
+   Extensible model architecture with MLP/CNN/temporal backbones and task heads for classification, regression, and segmentation.
+   Easy to implement and register custom models via the model registry.
 
 **Utilities**
-   Helper functions for device management, metrics calculation, and data conversion between DGL and PyTorch Geometric.
+   Helper functions for device management, seeding/logging, and metrics calculation.
 
 How to Cite
 -----------
@@ -128,6 +141,7 @@ If you use PyHazard in your research, please cite:
 
    implementation
    cite
+   references
    team
 
 

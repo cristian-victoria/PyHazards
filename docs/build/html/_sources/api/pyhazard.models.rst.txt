@@ -1,15 +1,40 @@
 pyhazard.models package
-====================
+=======================
 
-Subpackages
------------
+Submodules
+----------
 
-.. toctree::
-   :maxdepth: 4
+pyhazard.models.backbones module
+--------------------------------
 
-   pyhazard.models.attack
-   pyhazard.models.defense
-   pyhazard.models.nn
+.. automodule:: pyhazard.models.backbones
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyhazard.models.heads module
+----------------------------
+
+.. automodule:: pyhazard.models.heads
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyhazard.models.builder module
+------------------------------
+
+.. automodule:: pyhazard.models.builder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyhazard.models.registry module
+-------------------------------
+
+.. automodule:: pyhazard.models.registry
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------

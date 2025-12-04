@@ -1,47 +1,46 @@
 Quick Start
 =================
-This guide will help you get started with PyHazard quickly.
+This guide will help you get started with PyHazard quickly using the hazard-first API.
 
 Basic Usage
 -----------
 
-Loading a Dataset
-~~~~~~~~~~~~~~~~~
+Toy Example (tabular classification)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
-    from pyhazard.datasets import Cora
+    import torch
+    from pyhazard.datasets import DataBundle, DataSplit, Dataset, FeatureSpec, LabelSpec
+    from pyhazard.models import build_model
+    from pyhazard.engine import Trainer
+    from pyhazard.metrics import ClassificationMetrics
 
-    # Load the Cora dataset with PyTorch Geometric API
-    dataset = Cora(api_type='pyg')
+    class ToyHazard(Dataset):
+        def _load(self):
+            x = torch.randn(500, 16)
+            y = torch.randint(0, 2, (500,))
+            splits = {
+                "train": DataSplit(x[:350], y[:350]),
+                "val": DataSplit(x[350:425], y[350:425]),
+                "test": DataSplit(x[425:], y[425:]),
+            }
+            return DataBundle(
+                splits=splits,
+                feature_spec=FeatureSpec(input_dim=16, description="toy features"),
+                label_spec=LabelSpec(num_targets=2, task_type="classification"),
+            )
 
-    print(f"Number of nodes: {dataset.num_nodes}")
-    print(f"Number of features: {dataset.num_features}")
-    print(f"Number of classes: {dataset.num_classes}")
+    data = ToyHazard().load()
+    model = build_model(name="mlp", task="classification", in_dim=16, out_dim=2)
+    trainer = Trainer(model=model, metrics=[ClassificationMetrics()], mixed_precision=True)
 
-Using Graph Neural Networks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    loss_fn = torch.nn.CrossEntropyLoss()
 
-.. code-block:: python
-
-    import pyhazard
-    from pyhazard.datasets import Cora
-    from pyhazard.models.nn import GCN
-    from pyhazard.utils import get_device
-
-    # Load dataset
-    dataset = Cora(api_type='pyg')
-
-    # Initialize model
-    device = get_device()
-    model = GCN(
-        input_dim=dataset.num_features,
-        hidden_dim=64,
-        output_dim=dataset.num_classes
-    ).to(device)
-
-    # Your training code here
-    # ...
+    trainer.fit(data, optimizer=optimizer, loss_fn=loss_fn, max_epochs=5)
+    results = trainer.evaluate(data, split="test")
+    print(results)
 
 GPU Support
 -----------
@@ -66,54 +65,11 @@ PyHazard automatically detects CUDA availability. To explicitly set the device:
     # Or use CPU
     set_device("cpu")
 
-Available Datasets
-------------------
-
-PyHazard includes several built-in graph datasets:
-
-- **Cora**: Citation network (2708 nodes, 1433 features, 7 classes)
-- **CiteSeer**: Citation network (3327 nodes, 3703 features, 6 classes)
-- **PubMed**: Citation network (19717 nodes, 500 features, 3 classes)
-- **Computers**: Amazon co-purchase network
-- **Photo**: Amazon co-purchase network
-- **CoauthorCS**: Co-authorship network (Computer Science)
-- **CoauthorPhysics**: Co-authorship network (Physics)
-
-Example with different datasets:
-
-.. code-block:: python
-
-    from pyhazard.datasets import CiteSeer, PubMed, Computers
-
-    # Load CiteSeer
-    citeseer = CiteSeer(api_type='pyg')
-
-    # Load PubMed
-    pubmed = PubMed(api_type='pyg')
-
-    # Load Computers
-    computers = Computers(api_type='pyg')
-
-API Types
----------
-
-PyHazard supports both DGL and PyTorch Geometric APIs:
-
-.. code-block:: python
-
-    from pyhazard.datasets import Cora
-
-    # PyTorch Geometric format
-    dataset_pyg = Cora(api_type='pyg')
-
-    # DGL format
-    dataset_dgl = Cora(api_type='dgl')
-
 Next Steps
 ----------
 
 For more detailed documentation, please refer to:
 
-- :doc:`pyhazard_datasets` - Complete dataset API reference
+- :doc:`pyhazard_datasets` - Dataset interface and registration
 - :doc:`pyhazard_utils` - Utility functions and helpers
-- :doc:`implementation` - Guide for implementing custom models
+- :doc:`implementation` - Guide for implementing custom datasets and models

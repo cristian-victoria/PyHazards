@@ -8,6 +8,8 @@
 
    .. autosummary::
    
+      auto_device
       get_device
+      num_devices
       set_device
    

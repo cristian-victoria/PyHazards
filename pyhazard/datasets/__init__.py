@@ -1,21 +1,13 @@
-from .datasets import (
-    Dataset,
-    Cora,
-    CiteSeer,
-    PubMed,
-    Computers,
-    Photo,
-    CoauthorCS,
-    CoauthorPhysics,
-)
+from .base import DataBundle, DataSplit, Dataset, FeatureSpec, LabelSpec
+from .registry import available_datasets, load_dataset, register_dataset
 
 __all__ = [
-    'Dataset',
-    'Cora',
-    'CiteSeer',
-    'PubMed',
-    'Computers',
-    'Photo',
-    'CoauthorCS',
-    'CoauthorPhysics',
+    "DataBundle",
+    "DataSplit",
+    "Dataset",
+    "FeatureSpec",
+    "LabelSpec",
+    "available_datasets",
+    "load_dataset",
+    "register_dataset",
 ]

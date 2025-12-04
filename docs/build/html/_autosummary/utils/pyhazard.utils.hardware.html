@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="pyhazard.utils.dglTopyg" href="pyhazard.utils.dglTopyg.html"><link rel="prev" title="Utils" href="../../pyhazard_utils.html">
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="pyhazard.utils.common" href="pyhazard.utils.common.html"><link rel="prev" title="Utils" href="../../pyhazard_utils.html">
         <link rel="canonical" href="https://labrai.github.io/PyHazard/_autosummary/utils/pyhazard.utils.hardware.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
@@ -198,26 +198,16 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../pyhazard_datasets.html">Datasets</a><input aria-label="Toggle navigation of Datasets" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.Cora.html">pyhazard.datasets.Cora</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.CiteSeer.html">pyhazard.datasets.CiteSeer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.PubMed.html">pyhazard.datasets.PubMed</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.Computers.html">pyhazard.datasets.Computers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.Photo.html">pyhazard.datasets.Photo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.CoauthorCS.html">pyhazard.datasets.CoauthorCS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.CoauthorPhysics.html">pyhazard.datasets.CoauthorPhysics</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../pyhazard_datasets.html">Datasets</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">pyhazard.utils.hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyhazard.utils.dglTopyg.html">pyhazard.utils.dglTopyg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyhazard.utils.metrics.html">pyhazard.utils.metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyhazard.utils.common.html">pyhazard.utils.common</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../cite.html">How to Cite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../team.html">Core Team</a></li>
 </ul>
@@ -264,7 +254,13 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#pyhazard.utils.hardware.get_device" title="pyhazard.utils.hardware.get_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#pyhazard.utils.hardware.auto_device" title="pyhazard.utils.hardware.auto_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">auto_device</span></code></a>([prefer])</p></td>
+<td><p>Choose a device automatically.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#pyhazard.utils.hardware.get_device" title="pyhazard.utils.hardware.get_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#pyhazard.utils.hardware.num_devices" title="pyhazard.utils.hardware.num_devices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_devices</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#pyhazard.utils.hardware.set_device" title="pyhazard.utils.hardware.set_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_device</span></code></a>(device_str)</p></td>
@@ -274,14 +270,45 @@
 </table>
 </div>
 <dl class="py function">
+<dt class="sig sig-object py" id="pyhazard.utils.hardware.auto_device">
+<span class="sig-prename descclassname"><span class="pre">pyhazard.utils.hardware.</span></span><span class="sig-name descname"><span class="pre">auto_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/hardware.html#auto_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.hardware.auto_device" title="Link to this definition">¶</a></dt>
+<dd><p>Choose a device automatically. Respects PYHAZARD_DEVICE and prefer flag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pyhazard.utils.hardware.get_device">
 <span class="sig-prename descclassname"><span class="pre">pyhazard.utils.hardware.</span></span><span class="sig-name descname"><span class="pre">get_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/hardware.html#get_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.hardware.get_device" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyhazard.utils.hardware.num_devices">
+<span class="sig-prename descclassname"><span class="pre">pyhazard.utils.hardware.</span></span><span class="sig-name descname"><span class="pre">num_devices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/hardware.html#num_devices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.hardware.num_devices" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhazard.utils.hardware.set_device">
 <span class="sig-prename descclassname"><span class="pre">pyhazard.utils.hardware.</span></span><span class="sig-name descname"><span class="pre">set_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/hardware.html#set_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.hardware.set_device" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">None</span></p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 
@@ -290,12 +317,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="pyhazard.utils.dglTopyg.html">
+          <a class="next-page" href="pyhazard.utils.common.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">pyhazard.utils.dglTopyg</div>
+                <div class="title">pyhazard.utils.common</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -341,7 +368,9 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">pyhazard.utils.hardware</a><ul>
+<li><a class="reference internal" href="#pyhazard.utils.hardware.auto_device"><code class="docutils literal notranslate"><span class="pre">auto_device()</span></code></a></li>
 <li><a class="reference internal" href="#pyhazard.utils.hardware.get_device"><code class="docutils literal notranslate"><span class="pre">get_device()</span></code></a></li>
+<li><a class="reference internal" href="#pyhazard.utils.hardware.num_devices"><code class="docutils literal notranslate"><span class="pre">num_devices()</span></code></a></li>
 <li><a class="reference internal" href="#pyhazard.utils.hardware.set_device"><code class="docutils literal notranslate"><span class="pre">set_device()</span></code></a></li>
 </ul>
 </li>

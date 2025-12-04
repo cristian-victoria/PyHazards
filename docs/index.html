@@ -198,27 +198,14 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="pyhazard_datasets.html">Datasets</a><input aria-label="Toggle navigation of Datasets" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Cora.html">pyhazard.datasets.Cora</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CiteSeer.html">pyhazard.datasets.CiteSeer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.PubMed.html">pyhazard.datasets.PubMed</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Computers.html">pyhazard.datasets.Computers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Photo.html">pyhazard.datasets.Photo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CoauthorCS.html">pyhazard.datasets.CoauthorCS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CoauthorPhysics.html">pyhazard.datasets.CoauthorPhysics</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.hardware.html">pyhazard.utils.hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.dglTopyg.html">pyhazard.utils.dglTopyg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.metrics.html">pyhazard.utils.metrics</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="pyhazard_datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyhazard_utils.html">Utils</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cite.html">How to Cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="team.html">Core Team</a></li>
 </ul>
 
@@ -279,46 +266,59 @@
 <a class="reference external image-reference" href="https://github.com/LabRAI/PyHazard"><img alt="GitHub" src="_images/github.svg" />
 </a>
 <hr class="docutils" />
-<p><strong>PyHazard</strong> is a comprehensive Python framework for AI-powered hazard prediction and risk assessment. Built on PyTorch, PyTorch Geometric, and DGL, the library provides a modular and extensible architecture for building, training, and deploying machine learning models to predict and analyze natural hazards and environmental risks.</p>
+<p><strong>PyHazard</strong> is a comprehensive Python framework for AI-powered hazard prediction and risk assessment. Built on PyTorch with a hazard-first design, the library provides a modular and extensible architecture for building, training, and deploying machine learning models to predict and analyze natural hazards and environmental risks.</p>
 <p><strong>PyHazard is designed for:</strong></p>
 <ul class="simple">
-<li><p><strong>Modular Architecture</strong>: Easy-to-extend framework for implementing custom hazard prediction models</p></li>
-<li><p><strong>Graph Neural Networks</strong>: Built-in support for graph-based data representation and GNN models</p></li>
-<li><p><strong>Flexible Datasets</strong>: Unified dataset interface supporting both DGL and PyTorch Geometric</p></li>
-<li><p><strong>GPU Acceleration</strong>: Full CUDA support for training and inference</p></li>
-<li><p><strong>Extensible Models</strong>: Base classes for implementing custom prediction models</p></li>
-<li><p><strong>Production Ready</strong>: Type hints, proper error handling, and comprehensive testing</p></li>
+<li><p><strong>Hazard-First Architecture</strong>: Unified dataset interface for tabular, temporal, and raster data</p></li>
+<li><p><strong>Simple, Extensible Models</strong>: Ready-to-use MLP/CNN/temporal encoders with task heads</p></li>
+<li><p><strong>Trainer API</strong>: Fit/evaluate/predict with optional mixed precision and multi-GPU (DDP) support</p></li>
+<li><p><strong>Metrics</strong>: Classification, regression, and segmentation metrics out of the box</p></li>
+<li><p><strong>Extensibility</strong>: Registries for datasets, models, transforms, and pipelines</p></li>
 </ul>
 <p><strong>Quick Start Example:</strong></p>
-<p>Basic Usage Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pyhazard</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cora</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.models.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">GCN</span>
+<p>Basic Usage Example (toy dataset):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataBundle</span><span class="p">,</span> <span class="n">DataSplit</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">FeatureSpec</span><span class="p">,</span> <span class="n">LabelSpec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassificationMetrics</span>
 
-<span class="c1"># Load a dataset</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">Cora</span><span class="p">(</span><span class="n">api_type</span><span class="o">=</span><span class="s1">&#39;pyg&#39;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ToyHazard</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">500</span><span class="p">,))</span>
+        <span class="n">splits</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="mi">350</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">350</span><span class="p">]),</span>
+            <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">350</span><span class="p">:</span><span class="mi">425</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">350</span><span class="p">:</span><span class="mi">425</span><span class="p">]),</span>
+            <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">425</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">425</span><span class="p">:]),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">DataBundle</span><span class="p">(</span>
+            <span class="n">splits</span><span class="o">=</span><span class="n">splits</span><span class="p">,</span>
+            <span class="n">feature_spec</span><span class="o">=</span><span class="n">FeatureSpec</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;toy features&quot;</span><span class="p">),</span>
+            <span class="n">label_spec</span><span class="o">=</span><span class="n">LabelSpec</span><span class="p">(</span><span class="n">num_targets</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
 
-<span class="c1"># Initialize a model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">GCN</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span>
-    <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-    <span class="n">output_dim</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_classes</span>
-<span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">ToyHazard</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mlp&quot;</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span> <span class="n">in_dim</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">out_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">ClassificationMetrics</span><span class="p">()],</span> <span class="n">mixed_precision</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Your training and prediction code here</span>
-<span class="c1"># ...</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="core-components">
 <h1>Core Components<a class="headerlink" href="#core-components" title="Link to this heading">¶</a></h1>
 <dl class="simple">
-<dt><strong>Datasets</strong></dt><dd><p>PyHazard provides a unified dataset interface that supports both DGL and PyTorch Geometric formats.
-Built-in datasets include Cora, CiteSeer, PubMed, and more.</p>
+<dt><strong>Datasets</strong></dt><dd><p>PyHazard provides a unified dataset interface for tabular, temporal, and raster data, returning a <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code> with splits and specs.</p>
 </dd>
-<dt><strong>Models</strong></dt><dd><p>Extensible model architecture with built-in neural network backbones including GCN, GAT, and more.
-Easy to implement custom models by extending base classes.</p>
+<dt><strong>Models</strong></dt><dd><p>Extensible model architecture with MLP/CNN/temporal backbones and task heads for classification, regression, and segmentation.
+Easy to implement and register custom models via the model registry.</p>
 </dd>
-<dt><strong>Utilities</strong></dt><dd><p>Helper functions for device management, metrics calculation, and data conversion between DGL and PyTorch Geometric.</p>
+<dt><strong>Utilities</strong></dt><dd><p>Helper functions for device management, seeding/logging, and metrics calculation.</p>
 </dd>
 </dl>
 </section>

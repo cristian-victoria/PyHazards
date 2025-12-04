@@ -1,5 +1,5 @@
 pyhazard package
-=============
+================
 
 Subpackages
 -----------
@@ -9,6 +9,8 @@ Subpackages
 
    pyhazard.datasets
    pyhazard.models
+   pyhazard.engine
+   pyhazard.metrics
    pyhazard.utils
 
 Module contents

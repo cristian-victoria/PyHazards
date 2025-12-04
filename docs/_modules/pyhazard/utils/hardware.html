@@ -197,26 +197,16 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../pyhazard_datasets.html">Datasets</a><input aria-label="Toggle navigation of Datasets" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/datasets/pyhazard.datasets.Cora.html">pyhazard.datasets.Cora</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/datasets/pyhazard.datasets.CiteSeer.html">pyhazard.datasets.CiteSeer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/datasets/pyhazard.datasets.PubMed.html">pyhazard.datasets.PubMed</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/datasets/pyhazard.datasets.Computers.html">pyhazard.datasets.Computers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/datasets/pyhazard.datasets.Photo.html">pyhazard.datasets.Photo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/datasets/pyhazard.datasets.CoauthorCS.html">pyhazard.datasets.CoauthorCS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/datasets/pyhazard.datasets.CoauthorPhysics.html">pyhazard.datasets.CoauthorPhysics</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pyhazard_datasets.html">Datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/utils/pyhazard.utils.hardware.html">pyhazard.utils.hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/utils/pyhazard.utils.dglTopyg.html">pyhazard.utils.dglTopyg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/utils/pyhazard.utils.metrics.html">pyhazard.utils.metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/utils/pyhazard.utils.common.html">pyhazard.utils.common</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../implementation.html">Implementation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../cite.html">How to Cite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../team.html">Core Team</a></li>
 </ul>
@@ -252,7 +242,10 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for pyhazard.utils.hardware</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
@@ -260,16 +253,37 @@
 <span class="n">_default_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">_DEFAULT_DEVICE_STR</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="auto_device">
+<a class="viewcode-back" href="../../../api/pyhazard.utils.html#pyhazard.utils.auto_device">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">auto_device</span><span class="p">(</span><span class="n">prefer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Choose a device automatically. Respects PYHAZARD_DEVICE and prefer flag.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">prefer</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">prefer</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_default_device</span></div>
+
+
+
+<div class="viewcode-block" id="num_devices">
+<a class="viewcode-back" href="../../../api/pyhazard.utils.html#pyhazard.utils.num_devices">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">num_devices</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+
 <div class="viewcode-block" id="get_device">
-<a class="viewcode-back" href="../../../api/pyhazard.utils.html#pyhazard.utils.hardware.get_device">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_device</span><span class="p">():</span>
+<a class="viewcode-back" href="../../../api/pyhazard.utils.html#pyhazard.utils.get_device">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_device</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">_default_device</span></div>
 
 
 
 <div class="viewcode-block" id="set_device">
-<a class="viewcode-back" href="../../../api/pyhazard.utils.html#pyhazard.utils.hardware.set_device">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">set_device</span><span class="p">(</span><span class="n">device_str</span><span class="p">):</span>
+<a class="viewcode-back" href="../../../api/pyhazard.utils.html#pyhazard.utils.set_device">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_device</span><span class="p">(</span><span class="n">device_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">global</span> <span class="n">_default_device</span>
     <span class="n">_default_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device_str</span><span class="p">)</span></div>
 

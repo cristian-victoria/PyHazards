@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="pyhazard.datasets.Cora" href="_autosummary/datasets/pyhazard.datasets.Cora.html"><link rel="prev" title="Quick Start" href="quick_start.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Utils" href="pyhazard_utils.html"><link rel="prev" title="Quick Start" href="quick_start.html">
         <link rel="canonical" href="https://labrai.github.io/PyHazard/pyhazard_datasets.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
@@ -198,26 +198,16 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Datasets</a><input aria-label="Toggle navigation of Datasets" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Cora.html">pyhazard.datasets.Cora</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CiteSeer.html">pyhazard.datasets.CiteSeer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.PubMed.html">pyhazard.datasets.PubMed</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Computers.html">pyhazard.datasets.Computers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.Photo.html">pyhazard.datasets.Photo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CoauthorCS.html">pyhazard.datasets.CoauthorCS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/datasets/pyhazard.datasets.CoauthorPhysics.html">pyhazard.datasets.CoauthorPhysics</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.hardware.html">pyhazard.utils.hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.dglTopyg.html">pyhazard.utils.dglTopyg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.metrics.html">pyhazard.utils.metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/utils/pyhazard.utils.common.html">pyhazard.utils.common</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cite.html">How to Cite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="team.html">Core Team</a></li>
 </ul>
@@ -262,37 +252,43 @@
 <h1>Datasets<a class="headerlink" href="#datasets" title="Link to this heading">¶</a></h1>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
-<p>In this section, we present the datasets currently supported by PyHazard.
-For each dataset, we provide both DGL and PyG APIs to ensure flexibility and compatibility with different graph learning frameworks.</p>
+<p>PyHazard provides a unified dataset interface for hazard prediction across tabular, temporal, and raster data. Each dataset returns a <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code> containing splits, feature specs, label specs, and metadata.</p>
 </section>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/pyhazard.datasets.html#pyhazard.datasets.Cora" title="pyhazard.datasets.Cora"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhazard.datasets.Cora</span></code></a>([api_type, path])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/pyhazard.datasets.html#pyhazard.datasets.CiteSeer" title="pyhazard.datasets.CiteSeer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhazard.datasets.CiteSeer</span></code></a>([api_type, path])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/pyhazard.datasets.html#pyhazard.datasets.PubMed" title="pyhazard.datasets.PubMed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhazard.datasets.PubMed</span></code></a>([api_type, path])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/pyhazard.datasets.html#pyhazard.datasets.Computers" title="pyhazard.datasets.Computers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhazard.datasets.Computers</span></code></a>([api_type, path])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/pyhazard.datasets.html#pyhazard.datasets.Photo" title="pyhazard.datasets.Photo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhazard.datasets.Photo</span></code></a>([api_type, path])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/pyhazard.datasets.html#pyhazard.datasets.CoauthorCS" title="pyhazard.datasets.CoauthorCS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhazard.datasets.CoauthorCS</span></code></a>([api_type, path])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/pyhazard.datasets.html#pyhazard.datasets.CoauthorPhysics" title="pyhazard.datasets.CoauthorPhysics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhazard.datasets.CoauthorPhysics</span></code></a>([...])</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
+<section id="core-classes">
+<h2>Core classes<a class="headerlink" href="#core-classes" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dataset</span></code>: base class to implement <code class="docutils literal notranslate"><span class="pre">_load()</span></code> and return a <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataBundle</span></code>: holds named <code class="docutils literal notranslate"><span class="pre">DataSplit</span></code> objects, plus <code class="docutils literal notranslate"><span class="pre">feature_spec</span></code> and <code class="docutils literal notranslate"><span class="pre">label_spec</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FeatureSpec</span></code> / <code class="docutils literal notranslate"><span class="pre">LabelSpec</span></code>: describe inputs/targets to simplify model construction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">register_dataset</span></code> / <code class="docutils literal notranslate"><span class="pre">load_dataset</span></code>: lightweight registry for discovering datasets by name.</p></li>
+</ul>
+</section>
+<section id="example-skeleton">
+<h2>Example skeleton<a class="headerlink" href="#example-skeleton" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazard.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DataBundle</span><span class="p">,</span> <span class="n">DataSplit</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">FeatureSpec</span><span class="p">,</span> <span class="n">LabelSpec</span><span class="p">,</span> <span class="n">register_dataset</span>
+<span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyHazardDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_hazard&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,))</span>
+        <span class="n">splits</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="mi">800</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">800</span><span class="p">]),</span>
+            <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">800</span><span class="p">:</span><span class="mi">900</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">800</span><span class="p">:</span><span class="mi">900</span><span class="p">]),</span>
+            <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">DataSplit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">900</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="mi">900</span><span class="p">:]),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">DataBundle</span><span class="p">(</span>
+            <span class="n">splits</span><span class="o">=</span><span class="n">splits</span><span class="p">,</span>
+            <span class="n">feature_spec</span><span class="o">=</span><span class="n">FeatureSpec</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;example features&quot;</span><span class="p">),</span>
+            <span class="n">label_spec</span><span class="o">=</span><span class="n">LabelSpec</span><span class="p">(</span><span class="n">num_targets</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="n">register_dataset</span><span class="p">(</span><span class="n">MyHazardDataset</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">MyHazardDataset</span><span class="p">)</span>
+</pre></div>
 </div>
 </section>
 </section>
@@ -302,12 +298,12 @@ For each dataset, we provide both DGL and PyG APIs to ensure flexibility and com
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="_autosummary/datasets/pyhazard.datasets.Cora.html">
+          <a class="next-page" href="pyhazard_utils.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">pyhazard.datasets.Cora</div>
+                <div class="title">Utils</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -354,7 +350,8 @@ For each dataset, we provide both DGL and PyG APIs to ensure flexibility and com
             <ul>
 <li><a class="reference internal" href="#">Datasets</a><ul>
 <li><a class="reference internal" href="#summary">Summary</a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#core-classes">Core classes</a></li>
+<li><a class="reference internal" href="#example-skeleton">Example skeleton</a></li>
 </ul>
 </li>
 </ul>

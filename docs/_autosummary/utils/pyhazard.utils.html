@@ -173,7 +173,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -198,26 +198,16 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../pyhazard_datasets.html">Datasets</a><input aria-label="Toggle navigation of Datasets" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.Cora.html">pyhazard.datasets.Cora</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.CiteSeer.html">pyhazard.datasets.CiteSeer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.PubMed.html">pyhazard.datasets.PubMed</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.Computers.html">pyhazard.datasets.Computers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.Photo.html">pyhazard.datasets.Photo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.CoauthorCS.html">pyhazard.datasets.CoauthorCS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/pyhazard.datasets.CoauthorPhysics.html">pyhazard.datasets.CoauthorPhysics</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pyhazard_datasets.html">Datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../pyhazard_utils.html">Utils</a><input aria-label="Toggle navigation of Utils" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="pyhazard.utils.hardware.html">pyhazard.utils.hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyhazard.utils.dglTopyg.html">pyhazard.utils.dglTopyg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyhazard.utils.metrics.html">pyhazard.utils.metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyhazard.utils.common.html">pyhazard.utils.common</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../cite.html">How to Cite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../team.html">Core Team</a></li>
 </ul>
@@ -253,91 +243,82 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
           <section id="pyhazard-utils">
 <h1>pyhazard.utils<a class="headerlink" href="#pyhazard-utils" title="Link to this heading">¶</a></h1>
-<dl class="py class" id="module-pyhazard.utils">
-<dt class="sig sig-object py" id="pyhazard.utils.GraphNeuralNetworkMetric">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhazard.utils.</span></span><span class="sig-name descname"><span class="pre">GraphNeuralNetworkMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fidelity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accuracy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/metrics.html#GraphNeuralNetworkMetric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.GraphNeuralNetworkMetric" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Graph Neural Network Metric Class.</p>
-<p>This class evaluates two metrics, fidelity and accuracy, for a given
-GNN model on a specified graph and features.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyhazard.utils.GraphNeuralNetworkMetric.calculate_surrogate_fidelity">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate_surrogate_fidelity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surrogate_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/metrics.html#GraphNeuralNetworkMetric.calculate_surrogate_fidelity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.GraphNeuralNetworkMetric.calculate_surrogate_fidelity" title="Link to this definition">¶</a></dt>
-<dd><p>Calculate fidelity between target and surrogate model predictions.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyhazard.utils.</span></span><span class="sig-name descname"><span class="pre">auto_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/hardware.html#auto_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Choose a device automatically. Respects PYHAZARD_DEVICE and prefer flag.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>target_model</strong> – Original model</p></li>
-<li><p><strong>surrogate_model</strong> – Extracted surrogate model</p></li>
-<li><p><strong>data</strong> – Input graph data</p></li>
-<li><p><strong>mask</strong> – Optional mask for evaluation on specific nodes</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Fidelity score (percentage of matching predictions)</p>
-</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyhazard.utils.GraphNeuralNetworkMetric.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/metrics.html#GraphNeuralNetworkMetric.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.GraphNeuralNetworkMetric.evaluate" title="Link to this definition">¶</a></dt>
-<dd><p>Main function to update fidelity and accuracy scores.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyhazard.utils.GraphNeuralNetworkMetric.evaluate_helper">
-<span class="sig-name descname"><span class="pre">evaluate_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/metrics.html#GraphNeuralNetworkMetric.evaluate_helper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.GraphNeuralNetworkMetric.evaluate_helper" title="Link to this definition">¶</a></dt>
-<dd><p>Helper function to evaluate the model’s performance.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyhazard.utils.GraphNeuralNetworkMetric.evaluate_surrogate_extraction">
-<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate_surrogate_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surrogate_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/metrics.html#GraphNeuralNetworkMetric.evaluate_surrogate_extraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhazard.utils.GraphNeuralNetworkMetric.evaluate_surrogate_extraction" title="Link to this definition">¶</a></dt>
-<dd><p>Comprehensive evaluation of surrogate extraction attack.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>target_model</strong> – Original model</p></li>
-<li><p><strong>surrogate_model</strong> – Extracted surrogate model</p></li>
-<li><p><strong>data</strong> – Input graph data</p></li>
-<li><p><strong>train_mask</strong> – Mask for training nodes</p></li>
-<li><p><strong>val_mask</strong> – Mask for validation nodes</p></li>
-<li><p><strong>test_mask</strong> – Mask for test nodes</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing fidelity scores for different data splits</p>
-</dd>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyhazard.utils.</span></span><span class="sig-name descname"><span class="pre">get_device</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/hardware.html#get_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyhazard.utils.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/common.html#get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyhazard.utils.</span></span><span class="sig-name descname"><span class="pre">num_devices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/hardware.html#num_devices"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyhazard.utils.</span></span><span class="sig-name descname"><span class="pre">seed_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deterministic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/common.html#seed_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">pyhazard.utils.</span></span><span class="sig-name descname"><span class="pre">set_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyhazard/utils/hardware.html#set_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type">None</span></p>
+</dd>
+</dl>
 </dd></dl>
 
 <p class="rubric">Modules</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#module-pyhazard.utils.dglTopyg" title="pyhazard.utils.dglTopyg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dglTopyg</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#module-pyhazard.utils.hardware" title="pyhazard.utils.hardware"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardware</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#module-pyhazard.utils.hardware" title="pyhazard.utils.hardware"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardware</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#module-pyhazard.utils.metrics" title="pyhazard.utils.metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metrics</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../../api/pyhazard.utils.html#module-pyhazard.utils.common" title="pyhazard.utils.common"><code class="xref py py-obj docutils literal notranslate"><span class="pre">common</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -370,33 +351,8 @@ GNN model on a specified graph and features.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">pyhazard.utils</a><ul>
-<li><a class="reference internal" href="#pyhazard.utils.GraphNeuralNetworkMetric"><code class="docutils literal notranslate"><span class="pre">GraphNeuralNetworkMetric</span></code></a><ul>
-<li><a class="reference internal" href="#pyhazard.utils.GraphNeuralNetworkMetric.calculate_surrogate_fidelity"><code class="docutils literal notranslate"><span class="pre">GraphNeuralNetworkMetric.calculate_surrogate_fidelity()</span></code></a></li>
-<li><a class="reference internal" href="#pyhazard.utils.GraphNeuralNetworkMetric.evaluate"><code class="docutils literal notranslate"><span class="pre">GraphNeuralNetworkMetric.evaluate()</span></code></a></li>
-<li><a class="reference internal" href="#pyhazard.utils.GraphNeuralNetworkMetric.evaluate_helper"><code class="docutils literal notranslate"><span class="pre">GraphNeuralNetworkMetric.evaluate_helper()</span></code></a></li>
-<li><a class="reference internal" href="#pyhazard.utils.GraphNeuralNetworkMetric.evaluate_surrogate_extraction"><code class="docutils literal notranslate"><span class="pre">GraphNeuralNetworkMetric.evaluate_surrogate_extraction()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

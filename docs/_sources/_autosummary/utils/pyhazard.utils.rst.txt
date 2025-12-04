@@ -1,15 +1,14 @@
-﻿pyhazard.utils
-===========
+pyhazard.utils
+==============
 
 .. automodule:: pyhazard.utils
+   :noindex:
 
-   
 .. rubric:: Modules
 
 .. autosummary::
    :toctree:
    :recursive:
 
-   dglTopyg
    hardware
-   metrics
+   common
