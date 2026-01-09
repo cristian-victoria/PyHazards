@@ -58,7 +58,7 @@ A short, step-by-step example to inspect and visualize daily MERRA-2 NetCDF file
 
    .. code-block:: python
 
-      ROOT = Path("/home/runyang/WxC/Prithvi-WxC/data/merra-2")
+      ROOT = Path("/home/runyang/WxC/Prithvi-WxC/data/merra2")
 
       DATE_START = date(2024, 1, 1)
       DATE_END   = date(2025, 10, 31)
