@@ -10,41 +10,29 @@ Datasets
 --------------------
 
 .. list-table::
-   :widths: 10 90
+   :widths: 12 88
    :header-rows: 0
    :class: dataset-list
 
    * - :doc:`merra2 <datasets/merra2>`
-     - Global atmospheric reanalysis from NASA GMAO, providing hourly gridded meteorological fields commonly used as environmental drivers in climate and hazard modeling.
+     - Global atmospheric reanalysis from NASA GMAO used as meteorological drivers in climate and hazard modeling.
        Reference: `Gelaro et al. (2017) <https://journals.ametsoc.org/view/journals/clim/30/14/jcli-d-16-0758.1.xml>`_.
 
    * - :doc:`era5 <datasets/era5>`
-     - High-resolution global reanalysis produced by ECMWF and distributed via Copernicus CDS, widely used as standardized meteorological covariates.
+     - High-resolution global reanalysis produced by ECMWF and distributed via Copernicus CDS.
        Reference: `Hersbach et al. (2020) <https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.3803>`_.
 
-   * - :doc:`noaa_flood <datasets/noaa_flood>`
-     - Event-based flood reports from NOAA’s Storm Events Database, providing occurrence and impact records for supervised flood analysis.
-       Reference: `NCEI Storm Events Database <https://www.ncei.noaa.gov/products/storm-events-database>`_.
-
-   * - :doc:`firms <datasets/firms>`
-     - Near-real-time active fire detections derived from MODIS and VIIRS sensors, commonly used for wildfire monitoring and event labeling.
-       Reference: `Schroeder et al. (2014) <https://doi.org/10.1016/j.rse.2013.08.008>`_.
-
    * - :doc:`mtbs <datasets/mtbs>`
-     - Burn severity and fire perimeter products for the United States, supporting post-fire assessment and long-term wildfire regime analysis.
+     - U.S. burn severity and fire perimeter products supporting post-fire assessment and long-term wildfire analysis.
        Reference: `Eidenshink et al. (2007) <https://doi.org/10.4996/fireecology.0301003>`_.
 
-   * - :doc:`landfire <datasets/landfire>`
-     - National-scale vegetation and fuel characteristic maps produced by the LANDFIRE program, commonly used as static covariates in wildfire modeling.
-       Reference: `LANDFIRE Program Overview <https://research.fs.usda.gov/firelab/products/dataandtools/landfire-landscape-fire-and-resource-management-planning>`_.
+   * - :doc:`firms <datasets/firms>`
+     - Near-real-time active fire detections from MODIS/VIIRS for wildfire monitoring and event labeling.
+       Reference: `Schroeder et al. (2014) <https://doi.org/10.1016/j.rse.2013.08.008>`_.
 
-   * - :doc:`glm <datasets/glm>`
-     - Geostationary Lightning Mapper (GLM) observations providing high-frequency lightning activity as a proxy for convective and ignition processes.
-       Reference: `Goodman et al. (2013) <https://doi.org/10.1016/j.atmosres.2013.01.006>`_.
-
-   * - :doc:`wfigs <datasets/wfigs>`
-     - Near-real-time U.S. wildfire perimeter data from the WFIGS program, supporting operational monitoring and perimeter-based evaluation.
-       Reference: `WFIGS Technical Documentation <https://iftdss.firenet.gov/firenetHelp/help/pageHelp/content/10-ftem/datatechnical/wildfires.htm>`_.
+   * - :doc:`noaa_flood <datasets/noaa_flood>`
+     - NOAA Storm Events flood reports providing event occurrence and impact records.
+       Reference: `Storm Events Database <https://www.ncei.noaa.gov/products/storm-events-database>`_.
 
 
 Dataset inspection
