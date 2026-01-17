@@ -14,26 +14,33 @@ Datasets
    :header-rows: 0
    :class: dataset-list
 
-   * - :doc:`merra2 <datasets/merra2>`
+   * - :ref:`merra2 <ds-merra2>`
      - Global atmospheric reanalysis from NASA GMAO used as meteorological drivers in climate and hazard modeling.
        Reference: `Gelaro et al. (2017) <https://journals.ametsoc.org/view/journals/clim/30/14/jcli-d-16-0758.1.xml>`_.
 
-   * - :doc:`era5 <datasets/era5>`
+   * - :ref:`era5 <ds-era5>`
      - High-resolution global reanalysis produced by ECMWF and distributed via Copernicus CDS.
        Reference: `Hersbach et al. (2020) <https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.3803>`_.
 
-   * - :doc:`mtbs <datasets/mtbs>`
-     - U.S. burn severity and fire perimeter products supporting post-fire assessment and long-term wildfire analysis.
-       Reference: `Eidenshink et al. (2007) <https://doi.org/10.4996/fireecology.0301003>`_.
-
-   * - :doc:`firms <datasets/firms>`
+   * - :ref:`firms <ds-firms>`
      - Near-real-time active fire detections from MODIS/VIIRS for wildfire monitoring and event labeling.
        Reference: `Schroeder et al. (2014) <https://doi.org/10.1016/j.rse.2013.08.008>`_.
 
-   * - :doc:`noaa_flood <datasets/noaa_flood>`
-     - NOAA Storm Events flood reports providing event occurrence and impact records.
-       Reference: `Storm Events Database <https://www.ncei.noaa.gov/products/storm-events-database>`_.
+   * - :ref:`mtbs <ds-mtbs>`
+     - U.S. burn severity and fire perimeter products supporting post-fire assessment and long-term wildfire analysis.
+       Reference: `Eidenshink et al. (2007) <https://doi.org/10.4996/fireecology.0301003>`_.
 
+   * - :ref:`landfire <ds-landfire>`
+     - National-scale vegetation and fuel characteristic maps used as static covariates in wildfire modeling.
+       Reference: `LANDFIRE Program Overview <https://research.fs.usda.gov/firelab/products/dataandtools/landfire-landscape-fire-and-resource-management-planning>`_.
+
+   * - :ref:`wfigs <ds-wfigs>`
+     - Near-real-time U.S. wildfire perimeter data used for operational monitoring and perimeter-based evaluation.
+       Reference: `WFIGS Current Interagency Fire Perimeters <https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-current-interagency-fire-perimeters/about>`_.
+
+   * - :ref:`goes-r <ds-goesr>`
+     - GOES-R GLM lightning observations providing high-frequency lightning activity as a proxy for convective and ignition processes.
+       Reference: `Goodman et al. (2013) <https://doi.org/10.1016/j.atmosres.2013.01.006>`_.
 
 Dataset inspection
 ------------------
