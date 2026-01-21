@@ -5,7 +5,7 @@ import math
 
 #inital code
 
-class hydrographnet(nn.Module):
+class HydroGraphNet(nn.Module):
     def __init__(
         self,
         node_in_dim: int,
@@ -30,15 +30,16 @@ class hydrographnet(nn.Module):
         self.decoder = MLP(in_dim = hidden_dim, out_dim = out_dim)
 
 
-    def forward(self, node_x: torch.Tensor, edge_x: torch.Tensor) -> torch.Tensor:
+    def forward(self, node_x: torch.Tensor, edge_x: torch.Tensor, senders, receivers, prev_y) -> torch.Tensor:
         #--encoder--
         node = self.node_encoder(node_x)
         edge = self.edge_encoder(edge_x)
         #--processor--
         for gn in self.processor:
-            node, edge = gn(node, edge)
+            node, edge = gn(node, edge, senders, receivers)
         #--decoder--
-        out = self.decoder(node) 
+        delta = self.decoder(node) 
+        out = delta + prev_y 
         return out
 
 
@@ -53,7 +54,7 @@ class MLP(nn.Module):
             nn.Linear(hidden_dim, out_dim),
         )
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.net(x)
+        return self.layers(x)
 
 
 class KAN(nn.Module):
@@ -74,12 +75,12 @@ class KAN(nn.Module):
                 for i in range(in_dim)
             ]
         )
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        batch_size = x.shape[0]
         outputs = []
 
         for i in range(self.in_dim):
-            xi = x[:, i].unsqueeze(1)
+            xi = x[:, : ,i].unsqueeze(-1)
 
            
             basis = [torch.ones_like(xi)]
@@ -87,27 +88,58 @@ class KAN(nn.Module):
                 basis.append(torch.sin(k * xi))
                 basis.append(torch.cos(k * xi))
 
-            basis = torch.cat(basis, dim=1)
+            basis = torch.cat(basis, dim=-1)
 
           
             outputs.append(self.feature_proj[i](basis))
       
         return torch.stack(outputs, dim=0).sum(dim=0)
-    
+ 
 class GN(nn.Module):
-    def __init__(
-        self,
-        #parameters,
-        #parameters,
-        #parameters,
-        #parameters,
-        #parameters,
-        #parameters,
-    ):
+    def __init__(self, hidden_dim: int):
         super().__init__()
-        #setting all of the values to defaults and parameters
+        self.edge_mlp = MLP(3 * hidden_dim, hidden_dim, hidden_dim)
+        self.node_mlp = MLP(2 * hidden_dim, hidden_dim, hidden_dim)
+
+    def forward(self, node, edge, senders, receivers):
+        sender_feat = node[:, senders, :]
+        receiver_feat = node[:, receivers, :]
+
+        edge_input = torch.cat([edge, sender_feat, receiver_feat], dim=-1)
+        edge = edge + self.edge_mlp(edge_input)
+
+        agg = torch.zeros_like(node)
+        agg.index_add_(1, receivers, edge)
+
+        node_input = torch.cat([node, agg], dim=-1)
+        node = node + self.node_mlp(node_input)
+
+        return node, edge
 
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        #forwarding process
-        return 1
+class HydroGraphLoss(nn.Module):
+    "PREDICTION"
+    def __init__(self):
+        super().__init__()
+    def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+        return F.mse_loss(pred, target)
+
+
+def hydrographnet_builder(
+    task: str,
+    node_in_dim: int,
+    edge_in_dim: int,
+    out_dim: int,
+    **kwargs,
+):
+    if task != "regression":
+        raise ValueError("HydroGraphNet only supports regression")
+
+    return HydroGraphNet(
+        node_in_dim=node_in_dim,
+        edge_in_dim=edge_in_dim,
+        out_dim=out_dim,
+        hidden_dim=kwargs.get("hidden_dim", 64),
+        harmonics=kwargs.get("harmonics", 5),
+        num_gn_blocks=kwargs.get("num_gn_blocks", 5),
+    )
