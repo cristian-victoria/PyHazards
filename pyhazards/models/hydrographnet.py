@@ -16,6 +16,8 @@ class HydroGraphNet(nn.Module):
         num_gn_blocks: int = 5,
     ):
         super().__init__()
+        self.edge_in_dim = edge_in_dim
+
         #-------encoder-------
         self.node_encoder = KAN(in_dim = node_in_dim, hidden_dim = hidden_dim, harmonics = harmonics)
         self.edge_encoder = MLP(in_dim= edge_in_dim, out_dim = hidden_dim , hidden_dim= hidden_dim)
@@ -28,18 +30,41 @@ class HydroGraphNet(nn.Module):
         )
         #-------decoder-------
         self.decoder = MLP(in_dim = hidden_dim, out_dim = out_dim)
+    def forward(self, batch):
+        # batch is a dict from graph_collate
+        x = batch["x"]        # (B, past_days, N, F)
+        adj = batch["adj"]    # (B, N, N) or None
 
+        # use last timestep
+        node_x = x[:, -1]     # (B, N, F)
 
-    def forward(self, node_x: torch.Tensor, edge_x: torch.Tensor, senders, receivers, prev_y) -> torch.Tensor:
-        #--encoder--
+        # ---- build senders / receivers from adjacency ----
+        if adj is None:
+            raise ValueError("HydroGraphNet requires adjacency")
+
+        # assume same adjacency for whole batch
+        A = adj[0]            # (N, N)
+        senders, receivers = A.nonzero(as_tuple=True)
+
+        # ---- encoder ----
         node = self.node_encoder(node_x)
+
+        # simple edge features (ones) for now
+        edge_x = torch.ones(
+            node.size(0),
+            senders.numel(),
+            self.edge_in_dim,
+            device=node.device
+        )
+
         edge = self.edge_encoder(edge_x)
-        #--processor--
+
+        # ---- GN processor ----
         for gn in self.processor:
             node, edge = gn(node, edge, senders, receivers)
-        #--decoder--
-        delta = self.decoder(node) 
-        out = delta + prev_y 
+
+        # ---- decoder ----
+        out = self.decoder(node)
         return out
 
 
