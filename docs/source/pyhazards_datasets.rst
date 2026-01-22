@@ -41,139 +41,23 @@ Datasets
 Dataset inspection
 ------------------
 
-A short, step-by-step example to inspect and visualize daily MERRA-2 NetCDF files.
+PyHazards provides a built-in inspection utility that allows users to
+quickly explore dataset structure and contents through a unified API.
 
-.. topic:: 1) Setup (imports the data)
+The example below demonstrates how to inspect a daily MERRA-2 file using
+the PyHazards dataset interface.
 
-   This block imports the dependencies used throughout the inspection workflow.
+.. code-block:: python
 
-   .. code-block:: python
+   import pyhazards
 
-      import os
-      from pathlib import Path
-      from datetime import date
+   dataset = pyhazards.datasets.MERRA2(
+       root="/path/to/merra2",
+       start_date="2024-01-01",
+       end_date="2024-01-31",
+   )
 
-      import numpy as np
-      import pandas as pd
-      import xarray as xr
-      import matplotlib.pyplot as plt
-      from IPython.display import display
-
-.. topic:: 2) Config (paths + date + filename patterns)
-
-   Set the root directory and choose a test day. The code assumes one file per day.
-
-   .. code-block:: python
-
-      ROOT = Path("/home/runyang/WxC/Prithvi-WxC/data/merra2")
-
-      DATE_START = date(2024, 1, 1)
-      DATE_END   = date(2025, 10, 31)
-      TEST_DAY = DATE_START
-
-      PATTERN_SFC = "MERRA2_sfc_{yyyymmdd}.nc"
-      PATTERN_PRES = "MERRA_pres_{yyyymmdd}.nc"
-
-      def yyyymmdd(d: date) -> str:
-         return d.strftime('%Y%m%d')
-
-      def build_path(kind: str, d: date) -> Path:
-         if kind.lower() in ['sfc', 'surface']:
-            return ROOT / PATTERN_SFC.format(yyyymmdd=yyyymmdd(d))
-         if kind.lower() in ['pres', 'pressure']:
-            return ROOT / PATTERN_PRES.format(yyyymmdd=yyyymmdd(d))
-         raise ValueError("kind must be 'sfc' or 'pres'")
-
-      build_path('sfc', TEST_DAY), build_path('pres', TEST_DAY)
-
-.. topic:: 3) Load helpers
-
-   Use ``xarray.open_dataset`` so you can work with named dimensions and variables.
-
-   .. code-block:: python
-
-      def open_merra(kind: str, d: date, *, engine: str | None = None, chunks=None) -> xr.Dataset:
-          """Open one daily MERRA2 file as an xarray Dataset."""
-          path = build_path(kind, d)
-          if not path.exists():
-              raise FileNotFoundError(f"Missing file: {path}")
-      
-          # engine=None lets xarray pick; you can set engine='netcdf4' or 'h5netcdf' if needed.
-          ds = xr.open_dataset(path, engine=engine, chunks=chunks)
-          return ds
-      
-      def list_vars(ds: xr.Dataset, max_show: int = 60) -> pd.DataFrame:
-          rows = []
-          for name, da in ds.data_vars.items():
-              rows.append({
-                  'var': name,
-                  'dims': str(da.dims),
-                  'shape': str(tuple(da.shape)),
-                  'dtype': str(da.dtype),
-              })
-          df = pd.DataFrame(rows).sort_values('var').reset_index(drop=True)
-          return df.head(max_show) if len(df) > max_show else df
-      
-      def inspect_ds(ds: xr.Dataset, name: str = 'dataset', max_vars: int = 60):
-          print(f"=== {name} ===")
-          print('dims:', dict(ds.dims))
-          print('coords:', list(ds.coords))
-          print('n_vars:', len(ds.data_vars))
-          display(list_vars(ds, max_show=max_vars))
-      
-      def summarize_da(da: xr.DataArray, *, load: bool = False) -> pd.Series:
-          """Global numeric summary for a DataArray."""
-          x = da
-          if load:
-              x = x.load()
-          # Works for dask-backed arrays too
-          s = xr.Dataset({
-              'min': x.min(skipna=True),
-              'max': x.max(skipna=True),
-              'mean': x.mean(skipna=True),
-              'std': x.std(skipna=True),
-          }).compute()
-          return pd.Series({k: float(s[k].values) for k in s.data_vars})
-
-.. topic:: 4) Load + quick inspect (dims, coords, basic stats)
-
-   Load both surface and pressure-level files and print basic metadata.
-
-   .. code-block:: python
-
-      ds_sfc  = open_merra('sfc',  TEST_DAY)
-      ds_pres = open_merra('pres', TEST_DAY)
-      
-      inspect_ds(ds_sfc,  'SFC (one day)')
-      inspect_ds(ds_pres, 'PRES (one day)')
-
-.. topic:: 5) Variable-level inspect
-
-   Pick a variable (e.g., `T2M`) and compute global statistics.
-
-   .. code-block:: python
-
-      VAR = 'T2M'  # change if your file uses a different naming
-      
-      if VAR not in ds_sfc:
-          raise KeyError(f"{VAR} not found in ds_sfc. Pick one from the table above.")
-      
-      da = ds_sfc[VAR]
-      print('dims:', da.dims)
-      print('shape:', da.shape)
-      summarize_da(da)      
-
-.. topic:: 6) Plot a lat-lon map for a variable
-
-   .. code-block:: python
-
-      var = "T2M"
-      t = 0
-      Z = ds_sfc[var].isel(time=t).values
-      plt.contourf(ds_sfc["lon"], ds_sfc["lat"], Z, 100)
-      plt.gca().set_aspect("equal")
-      plt.title(f"{var} (t={t})")
-      plt.show()
+   dataset.inspect(day="2024-01-01")
 
 Core classes
 ------------
