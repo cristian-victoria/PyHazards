@@ -263,7 +263,8 @@
 <h1>Datasets<a class="headerlink" href="#datasets" title="Link to this heading">¶</a></h1>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
-<p>PyHazards provides a unified dataset interface for hazard prediction across tabular, temporal, and raster data. Each dataset returns a DataBundle containing splits, feature specs, label specs, and metadata.</p>
+<p>PyHazards provides a unified dataset interface for hazard prediction across tabular, temporal, and raster data.
+Each dataset returns a DataBundle containing splits, feature specs, label specs, and metadata.</p>
 </section>
 <section id="id1">
 <h2>Datasets<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
@@ -304,13 +305,23 @@
 </section>
 <section id="dataset-inspection">
 <h2>Dataset inspection<a class="headerlink" href="#dataset-inspection" title="Link to this heading">¶</a></h2>
-<p>PyHazards provides a built-in inspection utility that allows users to
-quickly explore dataset structure and contents through a unified API.</p>
-<p>The example below demonstrates how to inspect a daily MERRA-2 file using
-the PyHazards dataset interface.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pyhazards.datasets.inspection<span class="w"> </span><span class="m">20260101</span>
+<p>PyHazards provides a built-in inspection utility that allows users to quickly explore dataset structure and contents through a unified API.</p>
+<p>The example below demonstrates how to inspect a daily MERRA-2 file using the PyHazards dataset interface.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># One command: download raw MERRA-2 (if needed) -&gt; merge SFC+PRES -&gt; inspect -&gt; save plots/tables</span>
+python<span class="w"> </span>-m<span class="w"> </span>pyhazards.datasets.inspection<span class="w"> </span><span class="m">20260101</span>
 </pre></div>
 </div>
+<p>Notes:</p>
+<ul>
+<li><p>MERRA-2 download requires Earthdata credentials via environment variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">EARTHDATA_USERNAME</span><span class="o">=</span><span class="s2">&quot;YOUR_USERNAME&quot;</span>
+<span class="n">export</span> <span class="n">EARTHDATA_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR_PASSWORD&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Outputs are written to <code class="docutils literal notranslate"><span class="pre">outputs/</span></code> under the repo root by default (can be changed via <code class="docutils literal notranslate"><span class="pre">--outdir</span></code>).</p></li>
+<li><p>Merged NetCDF files are written under <code class="docutils literal notranslate"><span class="pre">Prithvi-WxC/data/merra-2</span></code> by default (repo-root inferred automatically).</p></li>
+</ul>
 </section>
 <section id="core-classes">
 <h2>Core classes<a class="headerlink" href="#core-classes" title="Link to this heading">¶</a></h2>
@@ -323,6 +334,31 @@ the PyHazards dataset interface.</p>
 </section>
 <section id="example-skeleton">
 <h2>Example skeleton<a class="headerlink" href="#example-skeleton" title="Link to this heading">¶</a></h2>
+<p>This section provides a minimal, user-facing skeleton that makes the data flow explicit:
+<strong>load/download</strong> → <strong>merge</strong> → <strong>inspect</strong> → <strong>visualize</strong>.</p>
+<section id="recommended-one-shot-inspection-cli-merra-2">
+<h3>Recommended: one-shot inspection CLI (MERRA-2)<a class="headerlink" href="#recommended-one-shot-inspection-cli-merra-2" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Full pipeline (recommended)</span>
+python<span class="w"> </span>-m<span class="w"> </span>pyhazards.datasets.inspection<span class="w"> </span><span class="m">20260101</span>
+
+<span class="c1"># Change the surface variable to summarize/plot (default: T2M)</span>
+python<span class="w"> </span>-m<span class="w"> </span>pyhazards.datasets.inspection<span class="w"> </span><span class="m">20260101</span><span class="w"> </span>--var<span class="w"> </span>QV2M
+
+<span class="c1"># If raw/merged files already exist, skip steps accordingly</span>
+python<span class="w"> </span>-m<span class="w"> </span>pyhazards.datasets.inspection<span class="w"> </span><span class="m">20260101</span><span class="w"> </span>--skip-download<span class="w"> </span>--skip-merge
+
+<span class="c1"># Force re-download even if files already exist</span>
+python<span class="w"> </span>-m<span class="w"> </span>pyhazards.datasets.inspection<span class="w"> </span><span class="m">20260101</span><span class="w"> </span>--force-download
+
+<span class="c1"># Change output directory (relative to repo root, unless absolute path)</span>
+python<span class="w"> </span>-m<span class="w"> </span>pyhazards.datasets.inspection<span class="w"> </span><span class="m">20260101</span><span class="w"> </span>--outdir<span class="w"> </span>outputs_merra2_20260101
+</pre></div>
+</div>
+</section>
+</section>
+<section id="implementing-a-custom-dataset-developer-example">
+<h2>Implementing a custom dataset (developer example)<a class="headerlink" href="#implementing-a-custom-dataset-developer-example" title="Link to this heading">¶</a></h2>
+<p>If you want to add a new dataset to PyHazards, implement <code class="docutils literal notranslate"><span class="pre">Dataset._load()</span></code> and register it.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">DataBundle</span><span class="p">,</span> <span class="n">DataSplit</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">FeatureSpec</span><span class="p">,</span> <span class="n">LabelSpec</span><span class="p">,</span> <span class="n">register_dataset</span>
@@ -411,7 +447,11 @@ the PyHazards dataset interface.</p>
 <li><a class="reference internal" href="#id1">Datasets</a></li>
 <li><a class="reference internal" href="#dataset-inspection">Dataset inspection</a></li>
 <li><a class="reference internal" href="#core-classes">Core classes</a></li>
-<li><a class="reference internal" href="#example-skeleton">Example skeleton</a></li>
+<li><a class="reference internal" href="#example-skeleton">Example skeleton</a><ul>
+<li><a class="reference internal" href="#recommended-one-shot-inspection-cli-merra-2">Recommended: one-shot inspection CLI (MERRA-2)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementing-a-custom-dataset-developer-example">Implementing a custom dataset (developer example)</a></li>
 </ul>
 </li>
 </ul>

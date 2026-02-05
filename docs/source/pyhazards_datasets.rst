@@ -4,7 +4,9 @@ Datasets
 Summary
 -------
 
-PyHazards provides a unified dataset interface for hazard prediction across tabular, temporal, and raster data. Each dataset returns a DataBundle containing splits, feature specs, label specs, and metadata.
+PyHazards provides a unified dataset interface for hazard prediction across tabular, temporal, and raster data.
+Each dataset returns a DataBundle containing splits, feature specs, label specs, and metadata.
+
 
 Datasets
 --------------------
@@ -38,18 +40,28 @@ Datasets
    * - :doc:`goesr <datasets/goesr>`
      - High-frequency geostationary multispectral imagery from the `NOAA GOES-R series <https://www.goes-r.gov/>`_, supporting continuous monitoring (e.g., smoke/thermal context) and early detection workflows when paired with fire and meteorology datasets.
 
+
 Dataset inspection
 ------------------
 
-PyHazards provides a built-in inspection utility that allows users to
-quickly explore dataset structure and contents through a unified API.
+PyHazards provides a built-in inspection utility that allows users to quickly explore dataset structure and contents through a unified API.
 
-The example below demonstrates how to inspect a daily MERRA-2 file using
-the PyHazards dataset interface.
+The example below demonstrates how to inspect a daily MERRA-2 file using the PyHazards dataset interface.
 
 .. code-block:: bash
 
+   # One command: download raw MERRA-2 (if needed) -> merge SFC+PRES -> inspect -> save plots/tables
    python -m pyhazards.datasets.inspection 20260101
+
+Notes:
+
+- MERRA-2 download requires Earthdata credentials via environment variables::
+
+     export EARTHDATA_USERNAME="YOUR_USERNAME"
+     export EARTHDATA_PASSWORD="YOUR_PASSWORD"
+
+- Outputs are written to ``outputs/`` under the repo root by default (can be changed via ``--outdir``).
+- Merged NetCDF files are written under ``Prithvi-WxC/data/merra-2`` by default (repo-root inferred automatically).
 
 
 Core classes
@@ -60,31 +72,61 @@ Core classes
 - ``FeatureSpec`` / ``LabelSpec``: describe inputs/targets to simplify model construction.
 - ``register_dataset`` / ``load_dataset``: lightweight registry for discovering datasets by name.
 
+
 Example skeleton
 ----------------
 
+This section provides a minimal, user-facing skeleton that makes the data flow explicit:
+**load/download** → **merge** → **inspect** → **visualize**.
+
+Recommended: one-shot inspection CLI (MERRA-2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   # Full pipeline (recommended)
+   python -m pyhazards.datasets.inspection 20260101
+
+   # Change the surface variable to summarize/plot (default: T2M)
+   python -m pyhazards.datasets.inspection 20260101 --var QV2M
+
+   # If raw/merged files already exist, skip steps accordingly
+   python -m pyhazards.datasets.inspection 20260101 --skip-download --skip-merge
+
+   # Force re-download even if files already exist
+   python -m pyhazards.datasets.inspection 20260101 --force-download
+
+   # Change output directory (relative to repo root, unless absolute path)
+   python -m pyhazards.datasets.inspection 20260101 --outdir outputs_merra2_20260101
+
+
+Implementing a custom dataset (developer example)
+-------------------------------------------------
+
+If you want to add a new dataset to PyHazards, implement ``Dataset._load()`` and register it.
+
 .. code-block:: python
 
-    import torch
-    from pyhazards.datasets import (
-        DataBundle, DataSplit, Dataset, FeatureSpec, LabelSpec, register_dataset
-    )
+   import torch
+   from pyhazards.datasets import (
+       DataBundle, DataSplit, Dataset, FeatureSpec, LabelSpec, register_dataset
+   )
 
-    class MyHazardDataset(Dataset):
-        name = "my_hazard"
+   class MyHazardDataset(Dataset):
+       name = "my_hazard"
 
-        def _load(self):
-            x = torch.randn(1000, 16)
-            y = torch.randint(0, 2, (1000,))
-            splits = {
-                "train": DataSplit(x[:800], y[:800]),
-                "val": DataSplit(x[800:900], y[800:900]),
-                "test": DataSplit(x[900:], y[900:]),
-            }
-            return DataBundle(
-                splits=splits,
-                feature_spec=FeatureSpec(input_dim=16, description="example features"),
-                label_spec=LabelSpec(num_targets=2, task_type="classification"),
-            )
+       def _load(self):
+           x = torch.randn(1000, 16)
+           y = torch.randint(0, 2, (1000,))
+           splits = {
+               "train": DataSplit(x[:800], y[:800]),
+               "val": DataSplit(x[800:900], y[800:900]),
+               "test": DataSplit(x[900:], y[900:]),
+           }
+           return DataBundle(
+               splits=splits,
+               feature_spec=FeatureSpec(input_dim=16, description="example features"),
+               label_spec=LabelSpec(num_targets=2, task_type="classification"),
+           )
 
-    register_dataset(MyHazardDataset.name, MyHazardDataset)
+   register_dataset(MyHazardDataset.name, MyHazardDataset)
