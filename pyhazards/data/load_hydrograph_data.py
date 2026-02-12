@@ -40,11 +40,29 @@ def load_hydrograph_data(
     assert len(files) > 0, "No ERA5 NetCDF files found"
 
 
-    ds = xr.open_mfdataset(
-        files,
-        combine="by_coords",
-        chunks={},
-    )
+    # Prefer explicit NetCDF backends so users get a clear error message when
+    # optional IO dependencies are missing.
+    open_errors = []
+    ds = None
+    for engine in ("netcdf4", "h5netcdf"):
+        try:
+            ds = xr.open_mfdataset(
+                files,
+                combine="by_coords",
+                chunks={},
+                engine=engine,
+            )
+            break
+        except Exception as exc:
+            open_errors.append((engine, str(exc)))
+
+    if ds is None:
+        error_lines = [f"- {eng}: {msg}" for eng, msg in open_errors]
+        raise RuntimeError(
+            "Failed to open ERA5 NetCDF files. Install one of the required backends "
+            "with `pip install netCDF4 h5netcdf` and retry.\n"
+            + "\n".join(error_lines)
+        )
 
 
     lats = ds["latitude"].values
