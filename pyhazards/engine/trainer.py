@@ -54,7 +54,13 @@ class Trainer:
 
         train_split_data = data.get_split(train_split)
         train_loader = self._make_loader(train_split_data.inputs, train_split_data.targets, batch_size, num_workers, collate_fn)
-        scaler = torch.cuda.amp.GradScaler(enabled=self.mixed_precision and self.device.type == "cuda")
+        amp_enabled = self.mixed_precision and self.device.type == "cuda"
+        try:
+            scaler = torch.amp.GradScaler("cuda", enabled=amp_enabled)
+            use_new_amp = True
+        except (AttributeError, TypeError):
+            scaler = torch.cuda.amp.GradScaler(enabled=amp_enabled)
+            use_new_amp = False
 
         self.model.train()
         for _ in range(max_epochs):
@@ -62,9 +68,14 @@ class Trainer:
                 x = self._to_device(x)
                 y = self._to_device(y)
                 optimizer.zero_grad()
-                with torch.cuda.amp.autocast(enabled=scaler.is_enabled()):
-                    out = self.model(x)
-                    loss = loss_fn(out, y)
+                if use_new_amp:
+                    with torch.amp.autocast("cuda", enabled=scaler.is_enabled()):
+                        out = self.model(x)
+                        loss = loss_fn(out, y)
+                else:
+                    with torch.cuda.amp.autocast(enabled=scaler.is_enabled()):
+                        out = self.model(x)
+                        loss = loss_fn(out, y)
                 scaler.scale(loss).backward()
                 scaler.step(optimizer)
                 scaler.update()

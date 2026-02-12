@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 from typing import Any, Dict
 
 import torch.nn as nn
@@ -22,6 +23,14 @@ def build_model(name: str, task: str, **kwargs: Any) -> nn.Module:
     builder = cfg["builder"]
     defaults: Dict[str, Any] = cfg.get("defaults", {})
     merged = {**defaults, **kwargs, "task": task}
+
+    # Some builders (e.g., default_builder) require `name`, while others don't.
+    # Pass `name` only when the callable can accept it.
+    sig = inspect.signature(builder)
+    params = sig.parameters
+    accepts_kwargs = any(p.kind == inspect.Parameter.VAR_KEYWORD for p in params.values())
+    if "name" in params or accepts_kwargs:
+        return builder(**{**merged, "name": name})
     return builder(**merged)
 
 
