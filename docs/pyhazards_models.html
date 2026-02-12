@@ -259,9 +259,6 @@
 <li><p>Task heads: classification, regression, segmentation.</p></li>
 <li><p>A registry-driven builder so you can construct built-ins by name or register your own.</p></li>
 </ul>
-</section>
-<section id="hazard-focused-model-tables">
-<h2>Hazard-focused model tables<a class="headerlink" href="#hazard-focused-model-tables" title="Link to this heading">¶</a></h2>
 <section id="wildfire">
 <h3>Wildfire<a class="headerlink" href="#wildfire" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper colwidths-given dataset-list docutils container">
@@ -276,7 +273,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">build_model(name=&quot;wildfire_aspp&quot;,</span> <span class="pre">task=&quot;segmentation&quot;,</span> <span class="pre">in_channels=12)</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wildfire_aspp</span></code></p></td>
 <td><p>An explainable CNN model with an ASPP mechanism (CNN-ASPP) for next-day wildfire spread prediction using environmental variables from the Next Day Wildfire Spread dataset; compared against RF, SVM, ANN, and a baseline CNN. See <a class="reference external" href="https://ieeexplore.ieee.org/document/10568207">Application of Explainable Artificial Intelligence in Predicting Wildfire Spread: An ASPP-Enabled CNN Approach</a>.</p></td>
 </tr>
 </tbody>
@@ -297,7 +294,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">build_model(name=&quot;hydrographnet&quot;,</span> <span class="pre">task=&quot;regression&quot;,</span> <span class="pre">node_in_dim=2,</span> <span class="pre">edge_in_dim=3,</span> <span class="pre">out_dim=1)</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hydrographnet</span></code></p></td>
 <td><p>A novel physics-informed GNN framework that integrates the Kolmogorov-Arnold Network (KAN) to enhance interpretability for unstructured mesh-based flood forecasting. See <a class="reference external" href="https://onlinelibrary.wiley.com/doi/10.1111/mice.13484">Interpretable physics-informed graph neural networks for flood forecasting</a>.</p></td>
 </tr>
 </tbody>
@@ -478,8 +475,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Models</a><ul>
-<li><a class="reference internal" href="#summary">Summary</a></li>
-<li><a class="reference internal" href="#hazard-focused-model-tables">Hazard-focused model tables</a><ul>
+<li><a class="reference internal" href="#summary">Summary</a><ul>
 <li><a class="reference internal" href="#wildfire">Wildfire</a></li>
 <li><a class="reference internal" href="#flood">Flood</a></li>
 </ul>

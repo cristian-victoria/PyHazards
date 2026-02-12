@@ -42,19 +42,30 @@
 
 ----
 
-**PyHazards** is a comprehensive Python framework for AI-powered hazard prediction and risk assessment. Built on PyTorch with a hazard-first design, the library provides a modular and extensible architecture for building, training, and deploying machine learning models to predict and analyze natural hazards and environmental risks.
+Introduction
+------------
 
-**PyHazards is designed for:**
+PyHazards is a Python framework for AI-powered hazard prediction and risk assessment. It provides a hazard-first API for loading data, building models, running end-to-end experiments, and extending with your own modules.
 
-- **Hazard-First Architecture**: Unified dataset interface for tabular, temporal, and raster data
-- **Simple, Extensible Models**: Ready-to-use MLP/CNN/temporal encoders with task heads
-- **Trainer API**: Fit/evaluate/predict with optional mixed precision and multi-GPU (DDP) support
-- **Metrics**: Classification, regression, and segmentation metrics out of the box
-- **Extensibility**: Registries for datasets, models, transforms, and pipelines
+Core Components
+---------------
 
-**Quick Start Examples:**
+- **Datasets**: Unified interfaces for tabular, temporal, raster, and graph-style hazard data through ``DataBundle``.
+- **Models**: Built-in hazard models plus reusable backbones/heads via a registry-driven model API.
+- **Engine**: ``Trainer`` for fit/evaluate/predict workflows with mixed precision and distributed options.
+- **Metrics and Utilities**: Classification/regression/segmentation metrics, hardware helpers, and reproducibility tools.
 
-Load one dataset:
+Install
+-------
+
+.. code-block:: bash
+
+    pip install pyhazards
+
+Load Data
+---------
+
+Example using the implemented ERA5 flood subset loader:
 
 .. code-block:: python
 
@@ -68,11 +79,36 @@ Load one dataset:
     print(data.label_spec)
     print(list(data.splits.keys()))  # ["train"]
 
-Build one implemented model:
+Load Model
+----------
+
+Example using ``wildfire_aspp``:
 
 .. code-block:: python
 
     from pyhazards.models import build_model
+
+    model = build_model(
+        name="wildfire_aspp",
+        task="segmentation",
+        in_channels=12,
+    )
+    print(type(model).__name__)
+
+Full Test
+---------
+
+Short end-to-end example using real ERA5 data and an implemented flood model:
+
+.. code-block:: python
+
+    import torch
+    from pyhazards.data.load_hydrograph_data import load_hydrograph_data
+    from pyhazards.datasets import graph_collate
+    from pyhazards.engine import Trainer
+    from pyhazards.models import build_model
+
+    data = load_hydrograph_data("pyhazards/data/era5_subset", max_nodes=50)
 
     model = build_model(
         name="hydrographnet",
@@ -81,20 +117,38 @@ Build one implemented model:
         edge_in_dim=3,
         out_dim=1,
     )
-    print(type(model).__name__)
 
-Core Components
----------------
+    trainer = Trainer(model=model, mixed_precision=False)
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    loss_fn = torch.nn.MSELoss()
 
-**Datasets**
-   PyHazards provides a unified dataset interface for tabular, temporal, and raster data, returning a ``DataBundle`` with splits and specs.
+    trainer.fit(
+        data,
+        optimizer=optimizer,
+        loss_fn=loss_fn,
+        max_epochs=1,
+        batch_size=1,
+        collate_fn=graph_collate,
+    )
 
-**Models**
-   Extensible model architecture with MLP/CNN/temporal backbones and task heads for classification, regression, and segmentation.
-   Easy to implement and register custom models via the model registry.
+    metrics = trainer.evaluate(
+        data,
+        split="train",
+        batch_size=1,
+        collate_fn=graph_collate,
+    )
+    print(metrics)
 
-**Utilities**
-   Helper functions for device management, seeding/logging, and metrics calculation.
+Custom Module
+-------------
+
+To upload and use your own data/model modules:
+
+1. Upload your raw data files to your project path and write a dataset loader that returns a ``DataBundle``.
+2. Register your model with ``register_model`` and a builder function that returns an ``nn.Module``.
+3. Build with ``build_model(...)`` and train/evaluate through ``Trainer``.
+
+For implementation details, see :doc:`implementation`, :doc:`pyhazards_datasets`, and :doc:`pyhazards_models`.
 
 How to Cite
 -----------

@@ -270,17 +270,28 @@
 <a class="reference external image-reference" href="https://github.com/LabRAI/PyHazards"><img alt="GitHub" src="_images/github.svg" />
 </a>
 <hr class="docutils" />
-<p><strong>PyHazards</strong> is a comprehensive Python framework for AI-powered hazard prediction and risk assessment. Built on PyTorch with a hazard-first design, the library provides a modular and extensible architecture for building, training, and deploying machine learning models to predict and analyze natural hazards and environmental risks.</p>
-<p><strong>PyHazards is designed for:</strong></p>
+<section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h1>
+<p>PyHazards is a Python framework for AI-powered hazard prediction and risk assessment. It provides a hazard-first API for loading data, building models, running end-to-end experiments, and extending with your own modules.</p>
+</section>
+<section id="core-components">
+<h1>Core Components<a class="headerlink" href="#core-components" title="Link to this heading">¶</a></h1>
 <ul class="simple">
-<li><p><strong>Hazard-First Architecture</strong>: Unified dataset interface for tabular, temporal, and raster data</p></li>
-<li><p><strong>Simple, Extensible Models</strong>: Ready-to-use MLP/CNN/temporal encoders with task heads</p></li>
-<li><p><strong>Trainer API</strong>: Fit/evaluate/predict with optional mixed precision and multi-GPU (DDP) support</p></li>
-<li><p><strong>Metrics</strong>: Classification, regression, and segmentation metrics out of the box</p></li>
-<li><p><strong>Extensibility</strong>: Registries for datasets, models, transforms, and pipelines</p></li>
+<li><p><strong>Datasets</strong>: Unified interfaces for tabular, temporal, raster, and graph-style hazard data through <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code>.</p></li>
+<li><p><strong>Models</strong>: Built-in hazard models plus reusable backbones/heads via a registry-driven model API.</p></li>
+<li><p><strong>Engine</strong>: <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> for fit/evaluate/predict workflows with mixed precision and distributed options.</p></li>
+<li><p><strong>Metrics and Utilities</strong>: Classification/regression/segmentation metrics, hardware helpers, and reproducibility tools.</p></li>
 </ul>
-<p><strong>Quick Start Examples:</strong></p>
-<p>Load one dataset:</p>
+</section>
+<section id="install">
+<h1>Install<a class="headerlink" href="#install" title="Link to this heading">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyhazards
+</pre></div>
+</div>
+</section>
+<section id="load-data">
+<h1>Load Data<a class="headerlink" href="#load-data" title="Link to this heading">¶</a></h1>
+<p>Example using the implemented ERA5 flood subset loader:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.data.load_hydrograph_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_hydrograph_data</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">load_hydrograph_data</span><span class="p">(</span>
@@ -292,8 +303,31 @@
 <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">splits</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>  <span class="c1"># [&quot;train&quot;]</span>
 </pre></div>
 </div>
-<p>Build one implemented model:</p>
+</section>
+<section id="load-model">
+<h1>Load Model<a class="headerlink" href="#load-model" title="Link to this heading">¶</a></h1>
+<p>Example using <code class="docutils literal notranslate"><span class="pre">wildfire_aspp</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;wildfire_aspp&quot;</span><span class="p">,</span>
+    <span class="n">task</span><span class="o">=</span><span class="s2">&quot;segmentation&quot;</span><span class="p">,</span>
+    <span class="n">in_channels</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="full-test">
+<h1>Full Test<a class="headerlink" href="#full-test" title="Link to this heading">¶</a></h1>
+<p>Short end-to-end example using real ERA5 data and an implemented flood model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.data.load_hydrograph_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_hydrograph_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">graph_collate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_hydrograph_data</span><span class="p">(</span><span class="s2">&quot;pyhazards/data/era5_subset&quot;</span><span class="p">,</span> <span class="n">max_nodes</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;hydrographnet&quot;</span><span class="p">,</span>
@@ -302,20 +336,39 @@
     <span class="n">edge_in_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">out_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">mixed_precision</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+    <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+    <span class="n">max_epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">collate_fn</span><span class="o">=</span><span class="n">graph_collate</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">collate_fn</span><span class="o">=</span><span class="n">graph_collate</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
 </pre></div>
 </div>
-<section id="core-components">
-<h1>Core Components<a class="headerlink" href="#core-components" title="Link to this heading">¶</a></h1>
-<dl class="simple">
-<dt><strong>Datasets</strong></dt><dd><p>PyHazards provides a unified dataset interface for tabular, temporal, and raster data, returning a <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code> with splits and specs.</p>
-</dd>
-<dt><strong>Models</strong></dt><dd><p>Extensible model architecture with MLP/CNN/temporal backbones and task heads for classification, regression, and segmentation.
-Easy to implement and register custom models via the model registry.</p>
-</dd>
-<dt><strong>Utilities</strong></dt><dd><p>Helper functions for device management, seeding/logging, and metrics calculation.</p>
-</dd>
-</dl>
+</section>
+<section id="custom-module">
+<h1>Custom Module<a class="headerlink" href="#custom-module" title="Link to this heading">¶</a></h1>
+<p>To upload and use your own data/model modules:</p>
+<ol class="arabic simple">
+<li><p>Upload your raw data files to your project path and write a dataset loader that returns a <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code>.</p></li>
+<li><p>Register your model with <code class="docutils literal notranslate"><span class="pre">register_model</span></code> and a builder function that returns an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>.</p></li>
+<li><p>Build with <code class="docutils literal notranslate"><span class="pre">build_model(...)</span></code> and train/evaluate through <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>.</p></li>
+</ol>
+<p>For implementation details, see <a class="reference internal" href="implementation.html"><span class="doc">Implementation Guide</span></a>, <a class="reference internal" href="pyhazards_datasets.html"><span class="doc">Datasets</span></a>, and <a class="reference internal" href="pyhazards_models.html"><span class="doc">Models</span></a>.</p>
 </section>
 <section id="how-to-cite">
 <h1>How to Cite<a class="headerlink" href="#how-to-cite" title="Link to this heading">¶</a></h1>
