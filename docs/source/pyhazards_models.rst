@@ -10,6 +10,37 @@ PyHazards provides a lightweight, extensible model architecture with:
 - Task heads: classification, regression, segmentation.
 - A registry-driven builder so you can construct built-ins by name or register your own.
 
+Implemented models (hazard focus ranking)
+-----------------------------------------
+
+The table below summarizes all currently registered models (``available_models()``), ranked by hazard focus specialization.
+
+.. list-table::
+   :widths: 18 82
+   :header-rows: 0
+   :class: dataset-list
+
+   * - ``wildfire_mamba``
+     - **Rank 1 (Wildfire-focused)**. Mamba + GCN spatio-temporal model for county-day wildfire prediction (classification).
+
+   * - ``wildfire_aspp``
+     - **Rank 1 (Wildfire-focused)**. Backward-compatible wildfire segmentation model aliasing ``wildfire_cnn_aspp``.
+
+   * - ``wildfire_cnn_aspp``
+     - **Rank 1 (Wildfire-focused)**. CNN + ASPP raster model for wildfire segmentation.
+
+   * - ``hydrographnet``
+     - **Rank 2 (Hydrology/Flood-focused)**. Graph-network regression model for hydrologic forecasting tasks.
+
+   * - ``mlp``
+     - **Rank 3 (Generic multi-hazard)**. General-purpose tabular backbone + task head for baseline hazard modeling.
+
+   * - ``cnn``
+     - **Rank 3 (Generic multi-hazard)**. General-purpose raster backbone + task head for image/grid hazard inputs.
+
+   * - ``temporal``
+     - **Rank 3 (Generic multi-hazard)**. General-purpose temporal backbone + task head for sequence-based hazard signals.
+
 Core modules
 ------------
 

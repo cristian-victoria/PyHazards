@@ -270,6 +270,41 @@
 <li><p>A registry-driven builder so you can construct built-ins by name or register your own.</p></li>
 </ul>
 </section>
+<section id="implemented-models-hazard-focus-ranking">
+<h2>Implemented models (hazard focus ranking)<a class="headerlink" href="#implemented-models-hazard-focus-ranking" title="Link to this heading">¶</a></h2>
+<p>The table below summarizes all currently registered models (<code class="docutils literal notranslate"><span class="pre">available_models()</span></code>), ranked by hazard focus specialization.</p>
+<div class="table-wrapper colwidths-given dataset-list docutils container">
+<table class="dataset-list docutils align-default">
+<colgroup>
+<col style="width: 18.0%" />
+<col style="width: 82.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wildfire_mamba</span></code></p></td>
+<td><p><strong>Rank 1 (Wildfire-focused)</strong>. Mamba + GCN spatio-temporal model for county-day wildfire prediction (classification).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wildfire_aspp</span></code></p></td>
+<td><p><strong>Rank 1 (Wildfire-focused)</strong>. Backward-compatible wildfire segmentation model aliasing <code class="docutils literal notranslate"><span class="pre">wildfire_cnn_aspp</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wildfire_cnn_aspp</span></code></p></td>
+<td><p><strong>Rank 1 (Wildfire-focused)</strong>. CNN + ASPP raster model for wildfire segmentation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hydrographnet</span></code></p></td>
+<td><p><strong>Rank 2 (Hydrology/Flood-focused)</strong>. Graph-network regression model for hydrologic forecasting tasks.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mlp</span></code></p></td>
+<td><p><strong>Rank 3 (Generic multi-hazard)</strong>. General-purpose tabular backbone + task head for baseline hazard modeling.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cnn</span></code></p></td>
+<td><p><strong>Rank 3 (Generic multi-hazard)</strong>. General-purpose raster backbone + task head for image/grid hazard inputs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">temporal</span></code></p></td>
+<td><p><strong>Rank 3 (Generic multi-hazard)</strong>. General-purpose temporal backbone + task head for sequence-based hazard signals.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 <section id="core-modules">
 <h2>Core modules<a class="headerlink" href="#core-modules" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -444,6 +479,7 @@
             <ul>
 <li><a class="reference internal" href="#">Models</a><ul>
 <li><a class="reference internal" href="#summary">Summary</a></li>
+<li><a class="reference internal" href="#implemented-models-hazard-focus-ranking">Implemented models (hazard focus ranking)</a></li>
 <li><a class="reference internal" href="#core-modules">Core modules</a></li>
 <li><a class="reference internal" href="#build-a-built-in-model">Build a built-in model</a></li>
 <li><a class="reference internal" href="#register-a-custom-model">Register a custom model</a></li>
