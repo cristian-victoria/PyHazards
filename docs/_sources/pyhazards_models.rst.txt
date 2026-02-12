@@ -1,6 +1,16 @@
 Models
 ===================
 
+Summary
+-------
+
+PyHazards provides a lightweight, extensible model architecture with:
+
+- Backbones for common data types: MLP (tabular), CNN patch encoder (raster), temporal encoder (time-series).
+- Task heads: classification, regression, segmentation.
+- A registry-driven builder so you can construct built-ins by name or register your own.
+- Hazard-focused implementations such as ``wildfire_aspp`` and ``hydrographnet``.
+
 Model
 -----
 
@@ -16,7 +26,7 @@ Wildfire
 
    * - Module
      - Description
-   * - ``wildfire_aspp``
+   * - :doc:`wildfire_aspp <modules/models_wildfire_aspp>`
      - An explainable CNN model with an ASPP mechanism (CNN-ASPP) for next-day wildfire spread prediction using environmental variables from the Next Day Wildfire Spread dataset; compared against RF, SVM, ANN, and a baseline CNN. See `Marjani et al. (2024) <https://ieeexplore.ieee.org/document/10568207>`_.
 
 Flood
@@ -29,20 +39,14 @@ Flood
 
    * - Module
      - Description
-   * - ``hydrographnet``
+   * - :doc:`hydrographnet <modules/models_hydrographnet>`
      - A novel physics-informed GNN framework that integrates the Kolmogorov-Arnold Network (KAN) to enhance interpretability for unstructured mesh-based flood forecasting. See `Taghizadeh et al. (2025) <https://onlinelibrary.wiley.com/doi/10.1111/mice.13484>`_.
 
-Core modules
-------------
-
-- ``pyhazards.models.backbones`` — reusable feature extractors.
-- ``pyhazards.models.heads`` — task-specific heads.
-- ``pyhazards.models.builder`` — ``build_model(name, task, **kwargs)`` helper plus ``default_builder``.
-- ``pyhazards.models.registry`` — ``register_model`` / ``available_models``.
-- ``pyhazards.models`` — convenience re-exports and default registrations for ``mlp``, ``cnn``, ``temporal``.
+Build and register custom model
+-------------------------------
 
 Build a built-in model
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -58,7 +62,7 @@ Build a built-in model
     )
 
 Register a custom model
------------------------
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Create a builder function that returns an ``nn.Module`` and register it with a name. The registry handles defaults and discoverability.
 
@@ -81,8 +85,15 @@ Create a builder function that returns an ``nn.Module`` and register it with a n
     model = build_model(name="my_mlp", task="regression", in_dim=16, out_dim=1)
 
 Design notes
-------------
+~~~~~~~~~~~~
 
 - Builders receive ``task`` plus any kwargs you pass; use this to switch heads internally if needed.
 - ``register_model`` stores optional defaults so you can keep CLI/configs minimal.
 - Models are plain PyTorch modules, so you can compose them with the ``Trainer`` or your own loops.
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   modules/models_wildfire_aspp
+   modules/models_hydrographnet

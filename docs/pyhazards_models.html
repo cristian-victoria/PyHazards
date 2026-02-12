@@ -3,7 +3,7 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Engine" href="pyhazards_engine.html"><link rel="prev" title="Datasets" href="pyhazards_datasets.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="wildfire_aspp" href="modules/models_wildfire_aspp.html"><link rel="prev" title="pyhazards.datasets.goesr.inspection" href="modules/datasets_goesr_inspection.html">
         <link rel="canonical" href="https://labrai.github.io/PyHazards/pyhazards_models.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
@@ -199,8 +199,22 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="pyhazards_datasets.html">Datasets</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="pyhazards_datasets.html">Datasets</a><input aria-label="Toggle navigation of Datasets" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/datasets_merra2_inspection.html">pyhazards.datasets.merra2.inspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/datasets_era5_inspection.html">pyhazards.datasets.era5.inspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/datasets_noaa_flood_inspection.html">pyhazards.datasets.noaa_flood.inspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/datasets_firms_inspection.html">pyhazards.datasets.firms.inspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/datasets_mtbs_inspection.html">pyhazards.datasets.mtbs.inspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/datasets_landfire_inspection.html">pyhazards.datasets.landfire.inspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/datasets_wfigs_inspection.html">pyhazards.datasets.wfigs.inspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/datasets_goesr_inspection.html">pyhazards.datasets.goesr.inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Models</a><input aria-label="Toggle navigation of Models" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/models_wildfire_aspp.html">wildfire_aspp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/models_hydrographnet.html">hydrographnet</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pyhazards_engine.html">Engine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyhazards_metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyhazards_utils.html">Utils</a></li>
@@ -251,6 +265,16 @@
         <article role="main" id="furo-main-content">
           <section id="models">
 <h1>Models<a class="headerlink" href="#models" title="Link to this heading">¶</a></h1>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
+<p>PyHazards provides a lightweight, extensible model architecture with:</p>
+<ul class="simple">
+<li><p>Backbones for common data types: MLP (tabular), CNN patch encoder (raster), temporal encoder (time-series).</p></li>
+<li><p>Task heads: classification, regression, segmentation.</p></li>
+<li><p>A registry-driven builder so you can construct built-ins by name or register your own.</p></li>
+<li><p>Hazard-focused implementations such as <code class="docutils literal notranslate"><span class="pre">wildfire_aspp</span></code> and <code class="docutils literal notranslate"><span class="pre">hydrographnet</span></code>.</p></li>
+</ul>
+</section>
 <section id="model">
 <h2>Model<a class="headerlink" href="#model" title="Link to this heading">¶</a></h2>
 <p>We implemented different hazard prediction models for flood, wildfire, earthquake, weather, and more.</p>
@@ -268,7 +292,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wildfire_aspp</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="modules/models_wildfire_aspp.html"><span class="doc">wildfire_aspp</span></a></p></td>
 <td><p>An explainable CNN model with an ASPP mechanism (CNN-ASPP) for next-day wildfire spread prediction using environmental variables from the Next Day Wildfire Spread dataset; compared against RF, SVM, ANN, and a baseline CNN. See <a class="reference external" href="https://ieeexplore.ieee.org/document/10568207">Marjani et al. (2024)</a>.</p></td>
 </tr>
 </tbody>
@@ -289,7 +313,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hydrographnet</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="modules/models_hydrographnet.html"><span class="doc">hydrographnet</span></a></p></td>
 <td><p>A novel physics-informed GNN framework that integrates the Kolmogorov-Arnold Network (KAN) to enhance interpretability for unstructured mesh-based flood forecasting. See <a class="reference external" href="https://onlinelibrary.wiley.com/doi/10.1111/mice.13484">Taghizadeh et al. (2025)</a>.</p></td>
 </tr>
 </tbody>
@@ -297,18 +321,10 @@
 </div>
 </section>
 </section>
-<section id="core-modules">
-<h2>Core modules<a class="headerlink" href="#core-modules" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">pyhazards.models.backbones</span></code> — reusable feature extractors.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pyhazards.models.heads</span></code> — task-specific heads.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pyhazards.models.builder</span></code> — <code class="docutils literal notranslate"><span class="pre">build_model(name,</span> <span class="pre">task,</span> <span class="pre">**kwargs)</span></code> helper plus <code class="docutils literal notranslate"><span class="pre">default_builder</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pyhazards.models.registry</span></code> — <code class="docutils literal notranslate"><span class="pre">register_model</span></code> / <code class="docutils literal notranslate"><span class="pre">available_models</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pyhazards.models</span></code> — convenience re-exports and default registrations for <code class="docutils literal notranslate"><span class="pre">mlp</span></code>, <code class="docutils literal notranslate"><span class="pre">cnn</span></code>, <code class="docutils literal notranslate"><span class="pre">temporal</span></code>.</p></li>
-</ul>
-</section>
+<section id="build-and-register-custom-model">
+<h2>Build and register custom model<a class="headerlink" href="#build-and-register-custom-model" title="Link to this heading">¶</a></h2>
 <section id="build-a-built-in-model">
-<h2>Build a built-in model<a class="headerlink" href="#build-a-built-in-model" title="Link to this heading">¶</a></h2>
+<h3>Build a built-in model<a class="headerlink" href="#build-a-built-in-model" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span>
@@ -323,7 +339,7 @@
 </div>
 </section>
 <section id="register-a-custom-model">
-<h2>Register a custom model<a class="headerlink" href="#register-a-custom-model" title="Link to this heading">¶</a></h2>
+<h3>Register a custom model<a class="headerlink" href="#register-a-custom-model" title="Link to this heading">¶</a></h3>
 <p>Create a builder function that returns an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> and register it with a name. The registry handles defaults and discoverability.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_model</span><span class="p">,</span> <span class="n">build_model</span>
@@ -344,12 +360,15 @@
 </div>
 </section>
 <section id="design-notes">
-<h2>Design notes<a class="headerlink" href="#design-notes" title="Link to this heading">¶</a></h2>
+<h3>Design notes<a class="headerlink" href="#design-notes" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Builders receive <code class="docutils literal notranslate"><span class="pre">task</span></code> plus any kwargs you pass; use this to switch heads internally if needed.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">register_model</span></code> stores optional defaults so you can keep CLI/configs minimal.</p></li>
 <li><p>Models are plain PyTorch modules, so you can compose them with the <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> or your own loops.</p></li>
 </ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
 </section>
 </section>
 
@@ -358,23 +377,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="pyhazards_engine.html">
+          <a class="next-page" href="modules/models_wildfire_aspp.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Engine</div>
+                <div class="title">wildfire_aspp</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="pyhazards_datasets.html">
+          <a class="prev-page" href="modules/datasets_goesr_inspection.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Datasets</div>
+                <div class="title">pyhazards.datasets.goesr.inspection</div>
                 
               </div>
             </a>
@@ -409,15 +428,18 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Models</a><ul>
+<li><a class="reference internal" href="#summary">Summary</a></li>
 <li><a class="reference internal" href="#model">Model</a><ul>
 <li><a class="reference internal" href="#wildfire">Wildfire</a></li>
 <li><a class="reference internal" href="#flood">Flood</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#core-modules">Core modules</a></li>
+<li><a class="reference internal" href="#build-and-register-custom-model">Build and register custom model</a><ul>
 <li><a class="reference internal" href="#build-a-built-in-model">Build a built-in model</a></li>
 <li><a class="reference internal" href="#register-a-custom-model">Register a custom model</a></li>
 <li><a class="reference internal" href="#design-notes">Design notes</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
