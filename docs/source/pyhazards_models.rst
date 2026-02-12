@@ -24,7 +24,7 @@ Wildfire
    * - Module to call model
      - Description
    * - ``build_model(name="wildfire_aspp", task="segmentation", in_channels=12)``
-     - CNN+ASPP wildfire spread segmentation model. See `Application of Explainable Artificial Intelligence in Predicting Wildfire Spread: An ASPP-Enabled CNN Approach <https://ieeexplore.ieee.org/document/10568207>`_.
+     - An explainable CNN model with an ASPP mechanism (CNN-ASPP) for next-day wildfire spread prediction using environmental variables from the Next Day Wildfire Spread dataset; compared against RF, SVM, ANN, and a baseline CNN. See `Application of Explainable Artificial Intelligence in Predicting Wildfire Spread: An ASPP-Enabled CNN Approach <https://ieeexplore.ieee.org/document/10568207>`_.
 
 Flood
 ~~~~~
@@ -37,7 +37,7 @@ Flood
    * - Module to call model
      - Description
    * - ``build_model(name="hydrographnet", task="regression", node_in_dim=2, edge_in_dim=3, out_dim=1)``
-     - Physics-informed/interpretable graph model for flood forecasting. See `Interpretable physics-informed graph neural networks for flood forecasting <https://onlinelibrary.wiley.com/doi/10.1111/mice.13484>`_.
+     - A novel physics-informed GNN framework that integrates the Kolmogorov-Arnold Network (KAN) to enhance interpretability for unstructured mesh-based flood forecasting. See `Interpretable physics-informed graph neural networks for flood forecasting <https://onlinelibrary.wiley.com/doi/10.1111/mice.13484>`_.
 
 Core modules
 ------------
