@@ -16,8 +16,11 @@ Datasets
 
 .. list-table::
    :widths: 15 85
-   :header-rows: 0
+   :header-rows: 1
    :class: dataset-list
+
+   * - module
+     - Description
 
    * - :doc:`merra2 <datasets/merra2>`
      - Global atmospheric reanalysis from NASA GMAO MERRA-2 (`overview <https://gmao.gsfc.nasa.gov/gmao-products/merra-2/>`_), widely used as hourly gridded meteorological drivers for hazard modeling; see `Gelaro et al. (2017) <https://journals.ametsoc.org/view/journals/clim/30/14/jcli-d-16-0758.1.xml>`_.

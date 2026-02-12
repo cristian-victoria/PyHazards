@@ -1,14 +1,10 @@
 Models
 ===================
 
-Summary
--------
+Model
+-----
 
-PyHazards provides a lightweight, extensible model architecture with:
-
-- Backbones for common data types: MLP (tabular), CNN patch encoder (raster), temporal encoder (time-series).
-- Task heads: classification, regression, segmentation.
-- A registry-driven builder so you can construct built-ins by name or register your own.
+We implemented different hazard prediction models for flood, wildfire, earthquake, weather, and more.
 
 Wildfire
 ~~~~~~~~
@@ -18,7 +14,7 @@ Wildfire
    :header-rows: 1
    :class: dataset-list
 
-   * - Module to call model
+   * - Module
      - Description
    * - ``wildfire_aspp``
      - An explainable CNN model with an ASPP mechanism (CNN-ASPP) for next-day wildfire spread prediction using environmental variables from the Next Day Wildfire Spread dataset; compared against RF, SVM, ANN, and a baseline CNN. See `Application of Explainable Artificial Intelligence in Predicting Wildfire Spread: An ASPP-Enabled CNN Approach <https://ieeexplore.ieee.org/document/10568207>`_.
@@ -31,7 +27,7 @@ Flood
    :header-rows: 1
    :class: dataset-list
 
-   * - Module to call model
+   * - Module
      - Description
    * - ``hydrographnet``
      - A novel physics-informed GNN framework that integrates the Kolmogorov-Arnold Network (KAN) to enhance interpretability for unstructured mesh-based flood forecasting. See `Interpretable physics-informed graph neural networks for flood forecasting <https://onlinelibrary.wiley.com/doi/10.1111/mice.13484>`_.

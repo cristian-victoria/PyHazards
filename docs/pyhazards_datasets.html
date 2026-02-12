@@ -1,25 +1,25 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="./">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Models" href="pyhazards_models.html" /><link rel="prev" title="Quick Start" href="quick_start.html" />
-        <link rel="canonical" href="https://labrai.github.io/PyHazards/pyhazards_datasets.html" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Models" href="pyhazards_models.html"><link rel="prev" title="Quick Start" href="quick_start.html">
+        <link rel="canonical" href="https://labrai.github.io/PyHazards/pyhazards_datasets.html">
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
         <title>Datasets - PyHazards 1.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=aab0eeca" />
     
     
 
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
   
   }
   @media not print {
@@ -146,14 +146,10 @@
   </symbol>
 </svg>
 
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
-<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
-<label class="overlay sidebar-overlay" for="__navigation">
-  <div class="visually-hidden">Hide navigation sidebar</div>
-</label>
-<label class="overlay toc-overlay" for="__toc">
-  <div class="visually-hidden">Hide table of contents sidebar</div>
-</label>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
 
 <a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
@@ -163,8 +159,7 @@
   <header class="mobile-header">
     <div class="header-left">
       <label class="nav-overlay-icon" for="__navigation">
-        <div class="visually-hidden">Toggle site navigation sidebar</div>
-        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
       </label>
     </div>
     <div class="header-center">
@@ -172,8 +167,7 @@
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
-        <button class="theme-toggle">
-          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
           <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
           <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
           <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
@@ -181,8 +175,7 @@
         </button>
       </div>
       <label class="toc-overlay-icon toc-header-icon" for="__toc">
-        <div class="visually-hidden">Toggle table of contents sidebar</div>
-        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
   </header>
@@ -190,7 +183,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
-  
   
   <span class="sidebar-brand-text">PyHazards 1.0.1 documentation</span>
   
@@ -245,8 +237,7 @@
   </a>
 </div>
 <div class="theme-toggle-container theme-toggle-content">
-            <button class="theme-toggle">
-              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
               <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
               <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
@@ -254,8 +245,7 @@
             </button>
           </div>
           <label class="toc-overlay-icon toc-content-icon" for="__toc">
-            <div class="visually-hidden">Toggle table of contents sidebar</div>
-            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
@@ -276,29 +266,34 @@ quickly validate local data files via an inspection entrypoint (when available).
 <col style="width: 15.0%" />
 <col style="width: 85.0%" />
 </colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>module</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="datasets/merra2.html"><span class="doc">merra2</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="datasets/merra2.html"><span class="doc">merra2</span></a></p></td>
 <td><p>Global atmospheric reanalysis from NASA GMAO MERRA-2 (<a class="reference external" href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/">overview</a>), widely used as hourly gridded meteorological drivers for hazard modeling; see <a class="reference external" href="https://journals.ametsoc.org/view/journals/clim/30/14/jcli-d-16-0758.1.xml">Gelaro et al. (2017)</a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="datasets/era5.html"><span class="doc">era5</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="datasets/era5.html"><span class="doc">era5</span></a></p></td>
 <td><p>ECMWF ERA5 reanalysis served via the <a class="reference external" href="https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview">Copernicus CDS</a>, providing hourly single-/pressure-level variables for benchmarks and hazard covariates; see <a class="reference external" href="https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.3803">Hersbach et al. (2020)</a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="datasets/noaa_flood.html"><span class="doc">noaa_flood</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="datasets/noaa_flood.html"><span class="doc">noaa_flood</span></a></p></td>
 <td><p>Flood-related event reports from the <a class="reference external" href="https://www.ncei.noaa.gov/products/storm-events-database">NOAA Storm Events Database</a> (time, location, impacts), commonly used for event-level labeling and impact analysis.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="datasets/firms.html"><span class="doc">firms</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="datasets/firms.html"><span class="doc">firms</span></a></p></td>
 <td><p>Near-real-time active fire detections from <a class="reference external" href="https://firms.modaps.eosdis.nasa.gov/">NASA FIRMS</a> (MODIS/VIIRS), used for operational monitoring and as wildfire occurrence labels; see <a class="reference external" href="https://doi.org/10.1016/j.rse.2013.08.008">Schroeder et al. (2014)</a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="datasets/mtbs.html"><span class="doc">mtbs</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="datasets/mtbs.html"><span class="doc">mtbs</span></a></p></td>
 <td><p>US wildfire perimeters and burn severity layers from <a class="reference external" href="https://burnseverity.cr.usgs.gov/">MTBS</a> (Landsat-derived), used for post-fire assessment and long-term regime studies; see <a class="reference external" href="https://doi.org/10.4996/fireecology.0301003">Eidenshink et al. (2007)</a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="datasets/landfire.html"><span class="doc">landfire</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="datasets/landfire.html"><span class="doc">landfire</span></a></p></td>
 <td><p>Nationwide fuels and vegetation layers from the <a class="reference external" href="https://landfire.gov/">USFS LANDFIRE</a> program, often used as static landscape covariates for wildfire behavior and risk modeling; see <a class="reference external" href="https://research.fs.usda.gov/firelab/products/dataandtools/landfire-landscape-fire-and-resource-management-planning">the program overview</a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="datasets/wfigs.html"><span class="doc">wfigs</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="datasets/wfigs.html"><span class="doc">wfigs</span></a></p></td>
 <td><p>Authoritative incident-level wildfire records from the <a class="reference external" href="https://data-nifc.opendata.arcgis.com/">U.S. interagency WFIGS</a> ecosystem (ignition, location, status, extent), commonly used as ground-truth labels for wildfire occurrence.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="datasets/goesr.html"><span class="doc">goesr</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="datasets/goesr.html"><span class="doc">goesr</span></a></p></td>
 <td><p>High-frequency geostationary multispectral imagery from the <a class="reference external" href="https://www.goes-r.gov/">NOAA GOES-R series</a>, supporting continuous monitoring (e.g., smoke/thermal context) and early detection workflows when paired with fire and meteorology datasets.</p></td>
 </tr>
 </tbody>
@@ -477,6 +472,6 @@ python<span class="w"> </span>-m<span class="w"> </span>pyhazards.datasets.&lt;d
 </div><script src="_static/documentation_options.js?v=e7fff540"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>
