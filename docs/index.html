@@ -290,6 +290,7 @@
 </section>
 <section id="core-components">
 <h1>Core Components<a class="headerlink" href="#core-components" title="Link to this heading">¶</a></h1>
+<p>Use this as the minimal path: install the package, load one implemented dataset, build one implemented model, then run one end-to-end validation test.</p>
 <ul class="simple">
 <li><p><strong>Datasets</strong>: Unified interfaces for tabular, temporal, raster, and graph-style hazard data through <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code>.</p></li>
 <li><p><strong>Models</strong>: Built-in hazard models plus reusable backbones/heads via a registry-driven model API.</p></li>
@@ -299,16 +300,17 @@
 </section>
 <section id="install">
 <h1>Install<a class="headerlink" href="#install" title="Link to this heading">¶</a></h1>
+<p>Install from PyPI. If you plan to run on GPU, install a compatible PyTorch build first.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyhazards
 </pre></div>
 </div>
 </section>
 <section id="load-data">
 <h1>Load Data<a class="headerlink" href="#load-data" title="Link to this heading">¶</a></h1>
-<p>Example using the implemented ERA5 flood subset loader:</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">load_hydrograph_data</span></code> to load the implemented ERA5-based hydrograph/flood subset used by HydroGraphNet.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.data.load_hydrograph_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_hydrograph_data</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[Step 1/3] Loading ERA5 dataset...&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[Step 1/3] Loading ERA5-based hydrograph subset...&quot;</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">load_hydrograph_data</span><span class="p">(</span>
     <span class="n">era5_path</span><span class="o">=</span><span class="s2">&quot;pyhazards/data/era5_subset&quot;</span><span class="p">,</span>
     <span class="n">max_nodes</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
@@ -322,6 +324,7 @@
 </section>
 <section id="load-model">
 <h1>Load Model<a class="headerlink" href="#load-model" title="Link to this heading">¶</a></h1>
+<p>Build one implemented model from the registry (this example uses the wildfire model).</p>
 <p>Example using <code class="docutils literal notranslate"><span class="pre">wildfire_aspp</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model</span>
 
@@ -338,7 +341,7 @@
 </section>
 <section id="full-test">
 <h1>Full Test<a class="headerlink" href="#full-test" title="Link to this heading">¶</a></h1>
-<p>Short end-to-end example using real ERA5 data and an implemented flood model:</p>
+<p>Validation example: load the same ERA5-based hydrograph subset and run one epoch with <code class="docutils literal notranslate"><span class="pre">hydrographnet</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.data.load_hydrograph_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_hydrograph_data</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyhazards.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">graph_collate</span>
@@ -394,6 +397,7 @@
 </section>
 <section id="custom-module">
 <h1>Custom Module<a class="headerlink" href="#custom-module" title="Link to this heading">¶</a></h1>
+<p>Use this when you want to add your own dataset/model implementation into PyHazards.</p>
 <p>To upload and use your own data/model modules:</p>
 <ol class="arabic simple">
 <li><p>Upload your raw data files to your project path and write a dataset loader that returns a <code class="docutils literal notranslate"><span class="pre">DataBundle</span></code>.</p></li>

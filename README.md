@@ -15,12 +15,16 @@ PyHazards is a Python framework for AI-powered hazard prediction and risk assess
 
 ## Core Components
 
+Use this as the minimal path: install the package, load one implemented dataset, build one implemented model, then run one end-to-end validation test.
+
 - **Datasets**: Unified interfaces for tabular, temporal, raster, and graph-style hazard data through `DataBundle`.
 - **Models**: Built-in hazard models plus reusable backbones/heads via a registry-driven model API.
 - **Engine**: `Trainer` for fit/evaluate/predict workflows with mixed precision and distributed options.
 - **Metrics and Utilities**: Classification/regression/segmentation metrics, hardware helpers, and reproducibility tools.
 
 ## Install
+
+Install from PyPI. If you plan to run on GPU, install a compatible PyTorch build first.
 
 ```bash
 pip install pyhazards
@@ -34,12 +38,12 @@ export PYHAZARDS_DEVICE=cuda:0
 
 ## Load Data
 
-Example using the implemented ERA5 flood subset loader:
+Use `load_hydrograph_data` to load the implemented ERA5-based hydrograph/flood subset used by HydroGraphNet.
 
 ```python
 from pyhazards.data.load_hydrograph_data import load_hydrograph_data
 
-print("[Step 1/3] Loading ERA5 dataset...")
+print("[Step 1/3] Loading ERA5-based hydrograph subset...")
 data = load_hydrograph_data(
     era5_path="pyhazards/data/era5_subset",
     max_nodes=50,
@@ -51,6 +55,8 @@ print(list(data.splits.keys()))  # ["train"]
 ```
 
 ## Load Model
+
+Build one implemented model from the registry (this example uses the wildfire model).
 
 Example using `wildfire_aspp`:
 
@@ -69,7 +75,7 @@ print(type(model).__name__)
 
 ## Full Test
 
-Short end-to-end example using real ERA5 data and an implemented flood model:
+Validation example: load the same ERA5-based hydrograph subset and run one epoch with `hydrographnet`.
 
 ```python
 import torch
@@ -129,6 +135,8 @@ PASS: end-to-end implementation is working.
 ```
 
 ## Custom Module
+
+Use this when you want to add your own dataset/model implementation into PyHazards.
 
 To upload and use your own data/model modules:
 
