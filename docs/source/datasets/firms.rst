@@ -113,6 +113,34 @@ FIRMS data are publicly accessible through NASA Earthdata services:
 
 ----
 
+PyHazards Usage
+---------------
+
+Use the FIRMS inspection module to validate local files/paths.
+
+.. code-block:: bash
+
+   python -m pyhazards.datasets.firms.inspection --path /path/to/firms_data --max-items 10
+
+.. code-block:: python
+
+   import subprocess
+
+   subprocess.run(
+       [
+           "python",
+           "-m",
+           "pyhazards.datasets.firms.inspection",
+           "--path",
+           "/path/to/firms_data",
+           "--max-items",
+           "10",
+       ],
+       check=True,
+   )
+
+----
+
 Reference
 ---------
 

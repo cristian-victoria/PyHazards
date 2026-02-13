@@ -111,6 +111,29 @@ ERA5 data are distributed via the Copernicus Climate Data Store (CDS):
 
 ----
 
+PyHazards Usage
+---------------
+
+Use the canonical ERA5 dataset entrypoint to inspect local ERA5 NetCDF files.
+
+.. code-block:: bash
+
+   python -m pyhazards.datasets.era5.inspection --path pyhazards/data/era5_subset --max-vars 10
+
+For HydroGraphNet validation, convert ERA5 files into the graph ``DataBundle`` adapter:
+
+.. code-block:: python
+
+   from pyhazards.data.load_hydrograph_data import load_hydrograph_data
+
+   data = load_hydrograph_data(
+       era5_path="pyhazards/data/era5_subset",
+       max_nodes=50,
+   )
+   print(list(data.splits.keys()))  # ["train"]
+
+----
+
 Reference
 ---------
 

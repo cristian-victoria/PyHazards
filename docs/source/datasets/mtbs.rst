@@ -112,6 +112,34 @@ MTBS data products are publicly available through USGS portals:
 
 ----
 
+PyHazards Usage
+---------------
+
+Use the MTBS inspection module to validate local files/paths.
+
+.. code-block:: bash
+
+   python -m pyhazards.datasets.mtbs.inspection --path /path/to/mtbs_data --max-items 10
+
+.. code-block:: python
+
+   import subprocess
+
+   subprocess.run(
+       [
+           "python",
+           "-m",
+           "pyhazards.datasets.mtbs.inspection",
+           "--path",
+           "/path/to/mtbs_data",
+           "--max-items",
+           "10",
+       ],
+       check=True,
+   )
+
+----
+
 Reference
 ---------
 

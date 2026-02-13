@@ -106,6 +106,34 @@ LANDFIRE data products are publicly accessible via U.S. Forest Service portals:
 
 ----
 
+PyHazards Usage
+---------------
+
+Use the LANDFIRE inspection module to validate local files/paths.
+
+.. code-block:: bash
+
+   python -m pyhazards.datasets.landfire.inspection --path /path/to/landfire_data --max-items 10
+
+.. code-block:: python
+
+   import subprocess
+
+   subprocess.run(
+       [
+           "python",
+           "-m",
+           "pyhazards.datasets.landfire.inspection",
+           "--path",
+           "/path/to/landfire_data",
+           "--max-items",
+           "10",
+       ],
+       check=True,
+   )
+
+----
+
 Reference
 ---------
 

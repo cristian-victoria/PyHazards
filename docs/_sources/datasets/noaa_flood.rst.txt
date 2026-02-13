@@ -112,6 +112,34 @@ NOAA Storm Events data are publicly available via NOAA NCEI:
 
 ----
 
+PyHazards Usage
+---------------
+
+Use the NOAA Flood inspection module to validate local files/paths.
+
+.. code-block:: bash
+
+   python -m pyhazards.datasets.noaa_flood.inspection --path /path/to/noaa_flood_data --max-items 10
+
+.. code-block:: python
+
+   import subprocess
+
+   subprocess.run(
+       [
+           "python",
+           "-m",
+           "pyhazards.datasets.noaa_flood.inspection",
+           "--path",
+           "/path/to/noaa_flood_data",
+           "--max-items",
+           "10",
+       ],
+       check=True,
+   )
+
+----
+
 Reference
 ---------
 

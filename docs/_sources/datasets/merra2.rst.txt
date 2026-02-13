@@ -112,6 +112,31 @@ MERRA-2 data can be accessed via NASA Earthdata / GES DISC services:
 
 ----
 
+PyHazards Usage
+---------------
+
+Use the PyHazards dataset entrypoint below to run MERRA-2 inspection.
+
+.. code-block:: bash
+
+   # One-shot MERRA-2 pipeline (download -> merge -> inspect -> outputs)
+   python -m pyhazards.datasets.merra2.inspection 20260101
+
+.. code-block:: python
+
+   import subprocess
+
+   subprocess.run(
+       ["python", "-m", "pyhazards.datasets.merra2.inspection", "20260101"],
+       check=True,
+   )
+
+.. note::
+   MERRA-2 download steps require Earthdata credentials (``EARTHDATA_USERNAME`` and
+   ``EARTHDATA_PASSWORD``) when raw files are not present locally.
+
+----
+
 Reference
 ---------
 

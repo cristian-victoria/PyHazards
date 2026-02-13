@@ -114,6 +114,34 @@ WFIGS data are publicly accessible through U.S. interagency geospatial portals:
 
 ----
 
+PyHazards Usage
+---------------
+
+Use the WFIGS inspection module to validate local files/paths.
+
+.. code-block:: bash
+
+   python -m pyhazards.datasets.wfigs.inspection --path /path/to/wfigs_data --max-items 10
+
+.. code-block:: python
+
+   import subprocess
+
+   subprocess.run(
+       [
+           "python",
+           "-m",
+           "pyhazards.datasets.wfigs.inspection",
+           "--path",
+           "/path/to/wfigs_data",
+           "--max-items",
+           "10",
+       ],
+       check=True,
+   )
+
+----
+
 Reference
 ---------
 

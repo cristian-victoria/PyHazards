@@ -119,6 +119,34 @@ GOES-R data are distributed by NOAA through multiple access points:
 
 ----
 
+PyHazards Usage
+---------------
+
+Use the GOES-R inspection module to validate local files/paths.
+
+.. code-block:: bash
+
+   python -m pyhazards.datasets.goesr.inspection --path /path/to/goesr_data --max-items 10
+
+.. code-block:: python
+
+   import subprocess
+
+   subprocess.run(
+       [
+           "python",
+           "-m",
+           "pyhazards.datasets.goesr.inspection",
+           "--path",
+           "/path/to/goesr_data",
+           "--max-items",
+           "10",
+       ],
+       check=True,
+   )
+
+----
+
 Reference
 ---------
 

@@ -14,7 +14,7 @@ quickly validate local data files via an inspection entrypoint (when available).
 Datasets
 --------------------
 
-Click a module name to open its merged detail page (dataset summary + short usage example).
+Click a module name to open its unified dataset page (description + how to use in PyHazards).
 
 .. list-table::
    :widths: 15 85
@@ -24,29 +24,29 @@ Click a module name to open its merged detail page (dataset summary + short usag
    * - Module
      - Description
 
-   * - :doc:`merra2 <modules/datasets_merra2_inspection>`
-     - Global atmospheric reanalysis from NASA GMAO MERRA-2 (`overview <https://gmao.gsfc.nasa.gov/gmao-products/merra-2/>`_), widely used as hourly gridded meteorological drivers for hazard modeling; see `Gelaro et al. (2017) <https://journals.ametsoc.org/view/journals/clim/30/14/jcli-d-16-0758.1.xml>`_. Dataset page: :doc:`merra2 <datasets/merra2>`.
+   * - :doc:`merra2 <datasets/merra2>`
+     - Global atmospheric reanalysis from NASA GMAO MERRA-2 (`overview <https://gmao.gsfc.nasa.gov/gmao-products/merra-2/>`_), widely used as hourly gridded meteorological drivers for hazard modeling; see `Gelaro et al. (2017) <https://journals.ametsoc.org/view/journals/clim/30/14/jcli-d-16-0758.1.xml>`_.
 
-   * - :doc:`era5 <modules/datasets_era5_inspection>`
-     - ECMWF ERA5 reanalysis served via the `Copernicus CDS <https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview>`_, providing hourly single-/pressure-level variables for benchmarks and hazard covariates; see `Hersbach et al. (2020) <https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.3803>`_. Dataset page: :doc:`era5 <datasets/era5>`.
+   * - :doc:`era5 <datasets/era5>`
+     - ECMWF ERA5 reanalysis served via the `Copernicus CDS <https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview>`_, providing hourly single-/pressure-level variables for benchmarks and hazard covariates; see `Hersbach et al. (2020) <https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.3803>`_.
 
-   * - :doc:`noaa_flood <modules/datasets_noaa_flood_inspection>`
-     - Flood-related event reports from the `NOAA Storm Events Database <https://www.ncei.noaa.gov/products/storm-events-database>`_ (time, location, impacts), commonly used for event-level labeling and impact analysis. Dataset page: :doc:`noaa_flood <datasets/noaa_flood>`.
+   * - :doc:`noaa_flood <datasets/noaa_flood>`
+     - Flood-related event reports from the `NOAA Storm Events Database <https://www.ncei.noaa.gov/products/storm-events-database>`_ (time, location, impacts), commonly used for event-level labeling and impact analysis.
 
-   * - :doc:`firms <modules/datasets_firms_inspection>`
-     - Near-real-time active fire detections from `NASA FIRMS <https://firms.modaps.eosdis.nasa.gov/>`_ (MODIS/VIIRS), used for operational monitoring and as wildfire occurrence labels; see `Schroeder et al. (2014) <https://doi.org/10.1016/j.rse.2013.08.008>`_. Dataset page: :doc:`firms <datasets/firms>`.
+   * - :doc:`firms <datasets/firms>`
+     - Near-real-time active fire detections from `NASA FIRMS <https://firms.modaps.eosdis.nasa.gov/>`_ (MODIS/VIIRS), used for operational monitoring and as wildfire occurrence labels; see `Schroeder et al. (2014) <https://doi.org/10.1016/j.rse.2013.08.008>`_.
 
-   * - :doc:`mtbs <modules/datasets_mtbs_inspection>`
-     - US wildfire perimeters and burn severity layers from `MTBS <https://burnseverity.cr.usgs.gov/>`_ (Landsat-derived), used for post-fire assessment and long-term regime studies; see `Eidenshink et al. (2007) <https://doi.org/10.4996/fireecology.0301003>`_. Dataset page: :doc:`mtbs <datasets/mtbs>`.
+   * - :doc:`mtbs <datasets/mtbs>`
+     - US wildfire perimeters and burn severity layers from `MTBS <https://burnseverity.cr.usgs.gov/>`_ (Landsat-derived), used for post-fire assessment and long-term regime studies; see `Eidenshink et al. (2007) <https://doi.org/10.4996/fireecology.0301003>`_.
 
-   * - :doc:`landfire <modules/datasets_landfire_inspection>`
-     - Nationwide fuels and vegetation layers from the `USFS LANDFIRE <https://landfire.gov/>`_ program, often used as static landscape covariates for wildfire behavior and risk modeling; see `the program overview <https://research.fs.usda.gov/firelab/products/dataandtools/landfire-landscape-fire-and-resource-management-planning>`_. Dataset page: :doc:`landfire <datasets/landfire>`.
+   * - :doc:`landfire <datasets/landfire>`
+     - Nationwide fuels and vegetation layers from the `USFS LANDFIRE <https://landfire.gov/>`_ program, often used as static landscape covariates for wildfire behavior and risk modeling; see `the program overview <https://research.fs.usda.gov/firelab/products/dataandtools/landfire-landscape-fire-and-resource-management-planning>`_.
 
-   * - :doc:`wfigs <modules/datasets_wfigs_inspection>`
-     - Authoritative incident-level wildfire records from the `U.S. interagency WFIGS <https://data-nifc.opendata.arcgis.com/>`_ ecosystem (ignition, location, status, extent), commonly used as ground-truth labels for wildfire occurrence. Dataset page: :doc:`wfigs <datasets/wfigs>`.
+   * - :doc:`wfigs <datasets/wfigs>`
+     - Authoritative incident-level wildfire records from the `U.S. interagency WFIGS <https://data-nifc.opendata.arcgis.com/>`_ ecosystem (ignition, location, status, extent), commonly used as ground-truth labels for wildfire occurrence.
 
-   * - :doc:`goesr <modules/datasets_goesr_inspection>`
-     - High-frequency geostationary multispectral imagery from the `NOAA GOES-R series <https://www.goes-r.gov/>`_, supporting continuous monitoring (e.g., smoke/thermal context) and early detection workflows when paired with fire and meteorology datasets. Dataset page: :doc:`goesr <datasets/goesr>`.
+   * - :doc:`goesr <datasets/goesr>`
+     - High-frequency geostationary multispectral imagery from the `NOAA GOES-R series <https://www.goes-r.gov/>`_, supporting continuous monitoring (e.g., smoke/thermal context) and early detection workflows when paired with fire and meteorology datasets.
 
 
 Dataset inspection
@@ -153,11 +153,11 @@ If you plan to add inspection for a new dataset, mirror the MERRA-2 inspection p
    :maxdepth: 1
    :hidden:
 
-   modules/datasets_merra2_inspection
-   modules/datasets_era5_inspection
-   modules/datasets_noaa_flood_inspection
-   modules/datasets_firms_inspection
-   modules/datasets_mtbs_inspection
-   modules/datasets_landfire_inspection
-   modules/datasets_wfigs_inspection
-   modules/datasets_goesr_inspection
+   datasets/merra2
+   datasets/era5
+   datasets/noaa_flood
+   datasets/firms
+   datasets/mtbs
+   datasets/landfire
+   datasets/wfigs
+   datasets/goesr
