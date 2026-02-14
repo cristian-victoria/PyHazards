@@ -360,9 +360,13 @@ def test_model_save_load():
         past_days=8,
     )
     
+    # IMPORTANT: Set to eval mode before getting predictions
+    model.eval()
+    
     # Get predictions before save
     x = torch.randn(2, 8, 58, 12)
-    logits_before = model(x)
+    with torch.no_grad():
+        logits_before = model(x)
     
     # Save model
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pt") as f:
@@ -381,11 +385,10 @@ def test_model_save_load():
             past_days=8,
         )
         model_loaded.load_state_dict(torch.load(temp_path))
+        model_loaded.eval()  # IMPORTANT: Set to eval mode
         print(f"✅ Model loaded successfully")
         
         # Check predictions match
-        model_loaded.eval()
-        model.eval()
         with torch.no_grad():
             logits_after = model_loaded(x)
         
@@ -399,7 +402,6 @@ def test_model_save_load():
     
     print("\n" + "=" * 60)
     return True
-
 
 def run_all_tests():
     """Run all pitfall tests."""
