@@ -1,20 +1,3 @@
-"""
-ConvLEM (Convolutional Long Expressive Memory) adapted for wildfire prediction.
-
-This module implements ConvLEM for graph-structured county data, adapting the
-original dense spatial grid implementation from WaveCastNet to work with PyHazards'
-graph-temporal format: (batch, past_days, num_counties, features).
-
-Original paper: https://arxiv.org/abs/2405.20516
-Original implementation: https://github.com/dwlyu/WaveCastNet
-
-Key adaptations:
-- Conv2d operations replaced with graph convolutions over county adjacency
-- Spatial dimensions (H, W) replaced with graph nodes (num_counties)
-- Maintains ConvLEM's Long Expressive Memory mechanism with adaptive time-stepping
-- Seq2Seq architecture adapted to sequence-to-one prediction (past_days → next_day)
-"""
-
 from __future__ import annotations
 
 from typing import Optional
@@ -50,21 +33,13 @@ class GraphConvLEMCell(nn.Module):
     """
     Graph-adapted ConvLEM cell for county-level temporal predictions.
     
-    This cell replaces the Conv2d operations from the original ConvLEMCell with
-    graph-based linear transformations while maintaining the Long Expressive Memory
-    mechanism with adaptive time-stepping gates.
-    
-    The cell maintains two states:
-    - y (hidden state): Short-term activations updated each timestep
-    - z (memory state): Long-term memory with controlled decay
-    
     Args:
-        in_channels: Input feature dimension
-        out_channels: Hidden/memory state dimension
-        num_counties: Number of graph nodes (counties)
-        dt: Time step parameter for memory integration (default: 1.0)
-        activation: Activation function - 'tanh' or 'relu' (default: 'tanh')
-        use_reset_gate: Whether to use reset gate (ConvLEMCell_1 variant) (default: False)
+        - in_channels: Input feature dimension
+        - out_channels: Hidden/memory state dimension
+        - num_counties: Number of graph nodes (counties)
+        - dt: Time step parameter for memory integration (default: 1.0)
+        - activation: Activation function - 'tanh' or 'relu' (default: 'tanh')
+        - use_reset_gate: Whether to use reset gate (ConvLEMCell_1 variant) (default: False)
     """
     
     def __init__(
@@ -129,10 +104,10 @@ class GraphConvLEMCell(nn.Module):
         Forward pass.
         
         Args:
-            x: Input features (B, N, in_channels)
-            y: Hidden state (B, N, out_channels)
-            z: Memory state (B, N, out_channels)
-            adj: Optional adjacency matrix (B, N, N) or (N, N)
+            - x: Input features (B, N, in_channels)
+            - y: Hidden state (B, N, out_channels)
+            - z: Memory state (B, N, out_channels)
+            - adj: Optional adjacency matrix (B, N, N) or (N, N)
         
         Returns:
             Tuple of (y_new, z_new)
@@ -184,23 +159,19 @@ class ConvLEMWildfire(nn.Module):
     """
     ConvLEM-based wildfire prediction model for county-level data.
     
-    Architecture:
-    1. Input Embedding: Linear projection to hidden_dim
-    2. Encoder: Stack of GraphConvLEM layers processing past_days sequence
-    3. Decoder: Stack of GraphConvLEM layers generating next-day prediction
-    4. Output Projection: Linear layers mapping to binary classification logits
+    input embedding -> encoder -> decoder -> output projection
     
     Args:
-        in_dim: Number of input features per county per day
-        num_counties: Number of counties (graph nodes)
-        past_days: Number of historical days to process
-        hidden_dim: Hidden state dimension (default: 144)
-        num_layers: Number of ConvLEM encoder/decoder layer pairs (default: 2)
-        dt: Time step parameter for LEM mechanism (default: 1.0)
-        activation: Activation function - 'tanh' or 'relu' (default: 'tanh')
-        use_reset_gate: Whether to use reset gate variant (default: False)
-        dropout: Dropout rate (default: 0.1)
-        adjacency: Optional fixed adjacency matrix (N, N)
+        - in_dim: Number of input features per county per day
+        - num_counties: Number of counties (graph nodes)
+        - past_days: Number of historical days to process
+        - hidden_dim: Hidden state dimension (default: 144)
+        - num_layers: Number of ConvLEM encoder/decoder layer pairs (default: 2)
+        - dt: Time step parameter for LEM mechanism (default: 1.0)
+        - activation: Activation function - 'tanh' or 'relu' (default: 'tanh')
+        - use_reset_gate: Whether to use reset gate variant (default: False)
+        - dropout: Dropout rate (default: 0.1)
+        - adjacency: Optional fixed adjacency matrix (N, N)
     """
     
     def __init__(
