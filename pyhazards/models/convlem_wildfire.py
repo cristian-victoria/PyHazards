@@ -1,3 +1,20 @@
+"""
+ConvLEM (Convolutional Long Expressive Memory) adapted for wildfire prediction.
+
+This module implements ConvLEM for graph-structured county data, adapting the
+original dense spatial grid implementation from WaveCastNet to work with PyHazards'
+graph-temporal format: (batch, past_days, num_counties, features).
+
+Original paper: https://arxiv.org/abs/2405.20516
+Original implementation: https://github.com/dwlyu/WaveCastNet
+
+Key adaptations:
+- Conv2d operations replaced with graph convolutions over county adjacency
+- Spatial dimensions (H, W) replaced with graph nodes (num_counties)
+- Maintains ConvLEM's Long Expressive Memory mechanism with adaptive time-stepping
+- Seq2Seq architecture adapted to sequence-to-one prediction (past_days → next_day)
+"""
+
 from __future__ import annotations
 
 from typing import Optional
@@ -5,6 +22,8 @@ from typing import Optional
 import torch
 import torch.nn as nn
 import torch.nn.init as init
+import torch.nn.functional as F
+
 
 def _normalize_adjacency(adj: torch.Tensor) -> torch.Tensor:
     """
@@ -26,9 +45,18 @@ def _normalize_adjacency(adj: torch.Tensor) -> torch.Tensor:
     # Row normalization: D^-1 * A
     return adj / adj.sum(-1, keepdim=True).clamp(min=1e-6)
 
+
 class GraphConvLEMCell(nn.Module):
     """
     Graph-adapted ConvLEM cell for county-level temporal predictions.
+    
+    This cell replaces the Conv2d operations from the original ConvLEMCell with
+    graph-based linear transformations while maintaining the Long Expressive Memory
+    mechanism with adaptive time-stepping gates.
+    
+    The cell maintains two states:
+    - y (hidden state): Short-term activations updated each timestep
+    - z (memory state): Long-term memory with controlled decay
     
     Args:
         in_channels: Input feature dimension
@@ -36,7 +64,7 @@ class GraphConvLEMCell(nn.Module):
         num_counties: Number of graph nodes (counties)
         dt: Time step parameter for memory integration (default: 1.0)
         activation: Activation function - 'tanh' or 'relu' (default: 'tanh')
-        use_reset_gate: Whether to use reset gate variant (default: False)
+        use_reset_gate: Whether to use reset gate (ConvLEMCell_1 variant) (default: False)
     """
     
     def __init__(
@@ -150,6 +178,7 @@ class GraphConvLEMCell(nn.Module):
             y = (1.0 - ms_dt_bar) * y + ms_dt_bar * self.activation(transformed_z + i_z)
         
         return y, z
+
 
 class ConvLEMWildfire(nn.Module):
     """
@@ -271,14 +300,16 @@ class ConvLEMWildfire(nn.Module):
     
     def forward(
         self,
-        x: torch.Tensor,
+        x,  # Can be dict or tensor
         adjacency: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
         """
         Forward pass.
         
         Args:
-            x: Input tensor (batch, past_days, num_counties, in_dim)
+            x: Either:
+               - Input tensor (batch, past_days, num_counties, in_dim), OR
+               - Dict with keys {"x": tensor, "adj": tensor} from graph_collate
             adjacency: Optional adjacency override (N, N) or (B, N, N)
         
         Returns:
@@ -288,7 +319,7 @@ class ConvLEMWildfire(nn.Module):
         if isinstance(x, dict):
             adjacency = x.get("adj", adjacency)
             x = x["x"]
-            
+        
         B, T, N, F = x.shape
         
         # Validate input dimensions
@@ -365,3 +396,34 @@ class ConvLEMWildfire(nn.Module):
         logits = self.output_proj(output).squeeze(-1)  # (B, N)
         
         return logits
+
+
+def convlem_wildfire_builder(
+    task: str,
+    in_dim: int,
+    num_counties: int,
+    past_days: int,
+    **kwargs,
+) -> ConvLEMWildfire:
+    """Builder function for ConvLEM wildfire model."""
+    
+    if task.lower() not in {"classification", "binary_classification"}:
+        raise ValueError(
+            f"ConvLEM wildfire model is classification-only, got task='{task}'"
+        )
+    
+    return ConvLEMWildfire(
+        in_dim=in_dim,
+        num_counties=num_counties,
+        past_days=past_days,
+        hidden_dim=kwargs.get("hidden_dim", 144),
+        num_layers=kwargs.get("num_layers", 2),
+        dt=kwargs.get("dt", 1.0),
+        activation=kwargs.get("activation", "tanh"),
+        use_reset_gate=kwargs.get("use_reset_gate", False),
+        dropout=kwargs.get("dropout", 0.1),
+        adjacency=kwargs.get("adjacency"),
+    )
+
+
+__all__ = ["ConvLEMWildfire", "GraphConvLEMCell", "convlem_wildfire_builder"]

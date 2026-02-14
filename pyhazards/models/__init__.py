@@ -37,7 +37,7 @@ __all__ = [
     "HydroGraphNet",
     "HydroGraphNetLoss",
     "hydrographnet_builder",
-    "ConvLEMWildfire", 
+    "ConvLEMWildfire",
     "convlem_wildfire_builder",
 ]
 

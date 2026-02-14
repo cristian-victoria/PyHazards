@@ -4,10 +4,8 @@ from pyhazards.engine import Trainer
 from pyhazards.models import build_model
 from pyhazards.models.convlem_metrics import (
     WildfireAccuracy,
-    WildfirePrecision,
-    WildfireRecall,
-    WildfireF1Score,
-    CountyRiskCoverage,
+    WildfirePrecisionRecallF1,
+    CountyRiskMetrics,
 )
 
 # Setup
@@ -43,10 +41,8 @@ model = build_model(
 # Create metrics
 metrics = [
     WildfireAccuracy(threshold=0.5),
-    WildfirePrecision(threshold=0.5),
-    WildfireRecall(threshold=0.5),
-    WildfireF1Score(threshold=0.5),
-    CountyRiskCoverage(threshold=0.5),
+    WildfirePrecisionRecallF1(threshold=0.5),
+    CountyRiskMetrics(threshold=0.5),
 ]
 
 # Setup trainer with metrics
@@ -55,7 +51,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 loss_fn = torch.nn.BCEWithLogitsLoss()
 
 # Train
-print("Starting training with metrics...")
+print("Starting training with custom metrics...")
 trainer.fit(
     bundle, 
     optimizer=optimizer, 
@@ -65,4 +61,4 @@ trainer.fit(
     collate_fn=graph_collate
 )
 
-print("\n✅ Training with custom metrics PASSED!")
+print("\n✅ Step 5 (Losses/Metrics) COMPLETED!")

@@ -1,5 +1,6 @@
 """
 Comprehensive test suite for ConvLEM - Step 6: Common pitfalls checklist.
+
 Tests:
 1. Shape validation
 2. Adjacency matrix handling
@@ -7,9 +8,11 @@ Tests:
 4. Gradient flow
 5. Different configurations
 """
+
 import torch
 import torch.nn as nn
 from pyhazards.models import build_model
+
 
 def test_shape_validation():
     """Test that model validates input shapes correctly."""
@@ -69,6 +72,7 @@ def test_shape_validation():
     print("\n" + "=" * 60)
     return True
 
+
 def test_adjacency_normalization():
     """Test adjacency matrix normalization with self-loops."""
     print("=" * 60)
@@ -116,6 +120,7 @@ def test_adjacency_normalization():
     
     print("\n" + "=" * 60)
     return True
+
 
 def test_adjacency_options():
     """Test model works with different adjacency configurations."""
@@ -172,6 +177,7 @@ def test_adjacency_options():
     print("\n" + "=" * 60)
     return True
 
+
 def test_gradient_flow():
     """Test that gradients flow through all parameters."""
     print("=" * 60)
@@ -222,6 +228,7 @@ def test_gradient_flow():
     print("\n" + "=" * 60)
     return True
 
+
 def test_different_configurations():
     """Test model with different hyperparameter configurations."""
     print("=" * 60)
@@ -261,6 +268,7 @@ def test_different_configurations():
     print("\n" + "=" * 60)
     return True
 
+
 def test_batch_sizes():
     """Test model works with different batch sizes including batch_size=1."""
     print("=" * 60)
@@ -285,6 +293,7 @@ def test_batch_sizes():
     
     print("\n" + "=" * 60)
     return True
+
 
 def test_device_compatibility():
     """Test model can move between CPU and GPU (if available)."""
@@ -331,6 +340,8 @@ def test_device_compatibility():
     
     print("\n" + "=" * 60)
     return True
+
+
 def test_model_save_load():
     """Test model can be saved and loaded."""
     print("=" * 60)
@@ -340,73 +351,47 @@ def test_model_save_load():
     import tempfile
     import os
     
-    # Create model with fixed adjacency to ensure reproducibility
-    adj = torch.rand(58, 58)
-    adj = (adj + adj.t()) / 2
-    
+    # Create model
     model = build_model(
         "convlem_wildfire",
         task="classification",
         in_dim=12,
         num_counties=58,
         past_days=8,
-        adjacency=adj,  # Use fixed adjacency
     )
     
-    # Set to eval mode and use fixed random seed for reproducibility
-    model.eval()
-    torch.manual_seed(42)
-    x = torch.randn(2, 8, 58, 12)
-    
     # Get predictions before save
-    with torch.no_grad():
-        logits_before = model(x)
+    x = torch.randn(2, 8, 58, 12)
+    logits_before = model(x)
     
     # Save model
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pt") as f:
         temp_path = f.name
     
     try:
-        # Save full model state including buffers
-        torch.save({
-            'model_state_dict': model.state_dict(),
-            'adjacency': adj,
-        }, temp_path)
+        torch.save(model.state_dict(), temp_path)
         print(f"\n✅ Model saved to {temp_path}")
         
         # Create new model and load
-        checkpoint = torch.load(temp_path)
-        
         model_loaded = build_model(
             "convlem_wildfire",
             task="classification",
             in_dim=12,
             num_counties=58,
             past_days=8,
-            adjacency=checkpoint['adjacency'],  # Restore adjacency
         )
-        model_loaded.load_state_dict(checkpoint['model_state_dict'])
-        model_loaded.eval()
+        model_loaded.load_state_dict(torch.load(temp_path))
         print(f"✅ Model loaded successfully")
         
         # Check predictions match
+        model_loaded.eval()
+        model.eval()
         with torch.no_grad():
             logits_after = model_loaded(x)
         
-        # Check if outputs are close
-        max_diff = (logits_before - logits_after).abs().max().item()
-        
-        if not torch.allclose(logits_before, logits_after, atol=1e-5):
-            print(f"⚠️  Warning: Small numerical differences detected")
-            print(f"   Max difference: {max_diff:.2e}")
-            
-            # Try with more lenient tolerance
-            if torch.allclose(logits_before, logits_after, atol=1e-4):
-                print(f"✅ PASSED: Outputs match within tolerance (1e-4)")
-            else:
-                raise AssertionError(f"Loaded model produces different outputs! Max diff: {max_diff}")
-        else:
-            print(f"✅ PASSED: Loaded model produces identical outputs")
+        assert torch.allclose(logits_before, logits_after, atol=1e-5), \
+            "Loaded model produces different outputs!"
+        print(f"✅ PASSED: Loaded model produces identical outputs")
         
     finally:
         if os.path.exists(temp_path):
@@ -414,6 +399,8 @@ def test_model_save_load():
     
     print("\n" + "=" * 60)
     return True
+
+
 def run_all_tests():
     """Run all pitfall tests."""
     print("\n" + "=" * 60)
@@ -464,6 +451,7 @@ def run_all_tests():
     else:
         print(f"\n⚠️  {total - passed_count} test(s) failed. Please review.")
         return False
+
 
 if __name__ == "__main__":
     success = run_all_tests()
